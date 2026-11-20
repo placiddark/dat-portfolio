@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="How Darren Thompson built SpaSage Prime V15, a landing page engine for Growth99 that maps buyer questions, applies rhetoric and records editorial decisions.">
+<title>SpaSage Prime V15 | Darren Thompson</title>
+<style>
+:root{color-scheme:dark;--bg:#080d19;--panel:#101a2d;--ink:#edf4ff;--muted:#b6c5de;--line:#2b4166;--accent:#72e7ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:1rem/1.65 system-ui,sans-serif}a{color:var(--accent);text-underline-offset:.25em}a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}.wrap{width:min(100% - 2.5rem,68rem);margin:auto}header{padding:1.2rem 0;border-bottom:1px solid var(--line)}header .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem 2rem}header a:first-child{color:var(--ink)}section{padding:clamp(2.5rem,7vw,5rem) 0;border-bottom:1px solid var(--line)}.eyebrow{color:var(--accent);font-size:.78rem;text-transform:uppercase;letter-spacing:.13em;font-weight:700}h1,h2{font-family:Georgia,serif;font-weight:400;line-height:1.03;margin:.4em 0}h1{font-size:clamp(3rem,9vw,7rem);letter-spacing:-.065em}h2{font-size:clamp(2.15rem,5vw,3.6rem);letter-spacing:-.045em}h3{line-height:1.25}p{max-width:67ch;margin:.65em 0 1em;color:var(--muted)}.hero p{font-size:clamp(1.1rem,2vw,1.35rem)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.5rem 0}.card{background:var(--panel);border:1px solid var(--line);border-radius:1rem;padding:clamp(1rem,3vw,1.6rem)}.card h3{margin:.4em 0}summary{cursor:pointer;font-weight:650;color:var(--accent)}dl{margin:1.4rem 0 0}dt{font-weight:700}dd{margin:0 0 1rem;color:var(--muted)}blockquote{margin:1rem 0;padding:0 0 0 1rem;border-left:2px solid var(--accent)}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;margin-top:1.25rem}th,td{text-align:left;vertical-align:top;padding:.7rem;border-bottom:1px solid var(--line)}td{color:var(--muted)}.steps{max-width:70ch;padding-left:1.5rem}.steps li{padding:.45rem 0 .45rem .35rem;color:var(--muted)}.steps strong{color:var(--ink)}section details.card{margin-top:1rem}footer{padding:1.5rem 0}@media(max-width:640px){.grid{grid-template-columns:1fr}}
+
+header nav{display:flex;flex-wrap:wrap;gap:.6rem 1.25rem}header nav a:first-child{color:var(--accent)}
+.formula{font-size:1.2rem;color:var(--accent);font-variant-numeric:tabular-nums}
+.profile-examples>details+details{margin-top:1rem}
+
+body{background:
+  radial-gradient(ellipse 68rem 31rem at 72% 0,rgba(103,78,235,.16),transparent 72%),
+  var(--bg)}
+header{background:rgba(8,13,25,.78)}
+.hero{background:
+  radial-gradient(ellipse at 85% 30%,rgba(47,166,234,.11),transparent 64%),
+  repeating-linear-gradient(90deg,transparent 0 39px,rgba(114,231,255,.035) 39px 40px),
+  repeating-linear-gradient(0deg,transparent 0 39px,rgba(114,231,255,.035) 39px 40px)}
+.card{background:linear-gradient(145deg,#14223a,var(--panel) 72%);box-shadow:inset 0 1px 0 rgba(114,231,255,.07)}
+.formula{color:#aebcff}
+ .decision-map{width:100%;table-layout:fixed;border-collapse:collapse}
+.decision-map caption{text-align:left;color:var(--accent);font-weight:700;margin-bottom:.6rem}
+.decision-map th,.decision-map td{border-bottom:1px solid var(--line);text-align:left;vertical-align:top;padding:.6rem .35rem;overflow-wrap:anywhere}
+.decision-map th:first-child{width:24%}.decision-map td:nth-child(2){width:29%}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="../index.html">Darren Thompson · Portfolio</a><nav aria-label="Showcase sections"><a href="#workflow">Workflow</a><a href="#persuasion">Reader Psychology</a><a href="#inference">Inference &amp; Templates</a><a href="#maths">Maths</a><a href="#voice">Voice profiling</a></nav></div></header>
+<main class="wrap">
+<section class="hero">
+<div class="eyebrow">Growth99 · Landing Page Production</div>
+<h1>SpaSage Prime V15</h1>
+<p>I built SpaSage Prime V15 from the ground up to give Growth99 a system it had never had for producing and revising landing pages. I designed the agent workflow myself, drew on years of research and writing experience and built around the demands I saw firsthand on live campaigns.</p>
+<p>I designed the engine to work back from the reader’s hesitation. It assigns each question to the part of the page where the reader needs the answer, then gives the team a record of the reasoning behind the copy.</p>
+<p>The engine handles first drafts and routine checks so writers, designers and paid media specialists can focus on the work that calls for their judgement. They can shape a page around the clinic’s identity and audience, guide attention from the ad to the booking decision and use campaign data to decide what to test next.</p>
+</section>
+<section id="workflow" aria-labelledby="inputs-title">
+<h2 id="inputs-title">How Audience Research Becomes Page Copy</h2>
+<p>Each brief starts with the clinic, service and location. The intake pass reads those inputs alongside the campaign goal and any available research. Its working brief connects likely readers and search intent to a core promise, patient language and candidate calls to action.</p>
+<div class="grid">
+<article class="card"><h3>Give Each Finding a Place</h3><p>A phrase patients use to describe their frustration can become the opening line. The benefit copy speaks to what they want from the service. Questions about suitability belong in the FAQ, where readers can find a direct answer.</p></article>
+<article class="card"><h3>Write for More Than One Reader</h3><p>The hero leads with a benefit the main audiences share. Later sections address specific concerns in the research, such as what to expect from a consultation or which provider credentials matter to the reader.</p></article>
+</div>
+</section>
+<section id="inference" aria-labelledby="inference-title">
+<h2 id="inference-title">What SpaSage Infers Before It Drafts</h2>
+<p>A brief can name the service and city and still leave the audience, search targets and page structure open. SpaSage uses what the brief establishes to propose those decisions. When Protocol 14 research is available, ranked patient phrases, persona profiles and objections give those proposals a stronger basis.</p>
+<div class="grid">
+<article class="card">
+<h3>Build a Working Audience Profile</h3>
+<p>The service and patient language suggest who might need the page, what brought them there and what could hold up a decision. SpaSage can infer a reader’s likely goal, questions and stage of awareness from those cues. It treats age ranges and other demographic details as hypotheses until client data or audience research supports them. A city helps define the service area. It gives the engine little basis to infer who will book.</p>
+</article>
+<article class="card">
+<h3>Derive Local SEO Targets</h3>
+<p>The service and location give SpaSage a primary query candidate. The audience’s questions suggest supporting topics and help the engine distinguish a local booking search from an informational query. It can place the primary term in the H1 and early body copy, then work related language into benefits and FAQs where it fits. Search volume and ranking difficulty require separate keyword research.</p>
+</article>
+<article class="card">
+<h3>Select a Template for the Offer</h3>
+<p>For a new page, the upstream decision is which structure fits the reader’s next step. A service page needs room for the service, suitability and provider proof. A consultation-focused page brings the booking action and what to expect closer to the top. A membership page gives readers space to compare recurring benefits and terms. The selected template goes into Create Mode, which follows its section order and heading hierarchy.</p>
+</article>
+<article class="card">
+<h3>Read the Structure of an Existing Page</h3>
+<p>Modify Mode extracts the existing heading map and checks keyword placement. It infers campaign intent from the CTA and uses the live page as its structural baseline. If a page says “Learn More” in the hero and “Book a Consultation” later, the editor can confirm the intended conversion action before the engine aligns the copy.</p>
+</article>
+</div>
+<details class="card" open>
+<summary>Follow the decisions for the Bronx example</summary>
+<dl>
+<dt>What the brief establishes</dt><dd>A hypothetical Bronx clinic offers laser hair removal consultations. Sample audience research identifies repeat shaving and waxing as a frustration and suitability as a question.</dd>
+<dt>What SpaSage can infer</dt><dd>One likely reader wants to break the grooming cycle but needs to know whether the service suits their skin and hair. That gives the hero a concrete opening and the FAQ a question to answer. The brief leaves age and gender open.</dd>
+<dt>What it proposes for search</dt><dd>“Laser hair removal in the Bronx” is the primary local query candidate. A question such as “How do I know if laser hair removal is right for me?” can guide an FAQ and serve the reader’s research intent.</dd>
+<dt>Which structure fits</dt><dd>A local service-page template gives the hero room to identify the service and location, then lets the benefits, provider proof and FAQs support the booking decision. The offer sets the CTA as “Book a Consultation.”</dd>
+</dl>
+</details>
+</section>
+
+<section id="persuasion" aria-labelledby="persuasion-title">
+<h2 id="persuasion-title">From Reader Hesitation to Page Structure</h2>
+<p>I use buyer psychology to decide what information belongs where. A familiar problem can help the reader recognise the offer. Relevant evidence helps them evaluate it. Specific next steps reduce uncertainty before they book.</p>
+<div class="card">
+<table class="decision-map">
+<caption>How the engine gives each section a job</caption>
+<thead><tr><th scope="col">Page section</th><th scope="col">Reader question</th><th scope="col">Editorial decision</th></tr></thead>
+<tbody>
+<tr><th scope="row">Headline</th><td>Is this relevant to me?</td><td>Carry the ad’s promise through and use a problem or goal the reader recognises.</td></tr>
+<tr><th scope="row">Value proposition</th><td>What does the offer include?</td><td>Explain the service in familiar terms and name one concrete benefit the brief supports.</td></tr>
+<tr><th scope="row">Objections and FAQs</th><td>What will it cost? Am I eligible?</td><td>Answer directly from approved material. Record any missing detail for the clinic.</td></tr>
+<tr><th scope="row">Proof</th><td>Why should I trust this provider?</td><td>Put relevant credentials or approved evidence next to the statement they support.</td></tr>
+<tr><th scope="row">CTA</th><td>What happens after I click?</td><td>Name the action and explain the next step or any confirmed fee.</td></tr>
+</tbody>
+</table>
+</div>
+<h3>Work Backwards From the Point of Hesitation</h3>
+<ol class="steps">
+<li><strong>Identify the friction.</strong> Use the brief and audience research to identify what could delay a decision, such as an unclear cost or uncertainty about candidacy.</li>
+<li><strong>Trace the cause.</strong> Decide whether the reader needs proof, a practical detail or a clearer explanation of the offer.</li>
+<li><strong>Place the answer.</strong> Use Marcus Sheridan’s question-first approach to give each question a direct answer where it matters to the decision.</li>
+<li><strong>Verify the change.</strong> Check the answer against approved material and record the question, source and reason for the edit in the rationale log.</li>
+</ol>
+<h3>Use Narrative and Rhetoric to Shape the Argument</h3>
+<p>I adapt the Hero’s Journey to the reader’s decision. The page starts in a situation they recognise, acknowledges their doubts and introduces the provider as a guide. A short plan shows what happens next. The close returns to that plan with a clear action.</p>
+<p>Aristotle’s ethos, pathos and logos give me three questions for a draft. Where does the provider earn credibility? Where does the copy acknowledge what the reader cares about? Where does it give the reader evidence to weigh? Cicero’s canons give me a way to review the argument from idea and arrangement through style, recall and delivery. I separate what the reader can choose from what the clinic can confirm.</p>
+</section>
+<section aria-labelledby="work-title">
+<h2 id="work-title">Build a Page or Revise One</h2>
+<div class="grid">
+<article class="card"><div class="eyebrow">Create Mode</div><h3>From Brief to First Draft</h3><p>The engine takes the working brief and selected page template. It maps patient language and objections to headlines, benefits, proof and FAQs. It drafts within the supplied heading hierarchy, runs the audit and uses the findings to refine the headline, proof, benefits and local search terms.</p><details><summary>See an example</summary><p>A hypothetical clinic offers laser hair removal consultations. Its brief identifies repeated shaving as a frustration and suitability as a common question.</p><blockquote><strong>Laser Hair Removal in the Bronx</strong><br>You shave. You wax. It starts again. Find out whether laser hair removal suits your skin and hair.<br><strong>Book a Consultation</strong></blockquote><p>The headline establishes the service and location. The copy names the frustration and gives the reader a reason to book.</p></details></article>
+<article class="card"><div class="eyebrow">Modify Mode</div><h3>From Live Page to Change Set</h3><p>The engine audits the existing copy first. An editor can request the findings alone, changes to selected sections or a full revised draft. When the brief includes audience research, the engine compares the live copy with those findings. Its change set records the original text, proposed wording and audit finding behind each edit.</p><details><summary>See an example</summary><dl><dt>Original</dt><dd>Guaranteed results. Book your treatment today.</dd><dt>Proposed</dt><dd>Find out whether laser hair removal suits your skin and hair. Book a consultation.</dd><dt>Reason</dt><dd>Remove the unsupported guarantee and match the call to action to the clinic’s actual offer.</dd></dl></details></article>
+</div>
+</section>
+<section aria-labelledby="intent-title">
+<h2 id="intent-title">Give Each Page One Conversion Job</h2>
+<p>Campaign intent determines what the page asks of the reader. The prompt assigns a distinct intent to each page within a client’s campaign cycle so each asset has a clear role.</p>
+<div class="table-wrap">
+<table aria-labelledby="intent-title">
+<thead><tr><th scope="col">Campaign Stage</th><th scope="col">Intent ID</th><th scope="col">Page Goal</th><th scope="col">Example CTA</th></tr></thead>
+<tbody>
+<tr><th scope="row">Awareness</th><td>1</td><td>Introduce the service through education.</td><td>Learn More</td></tr>
+<tr><th scope="row">Consideration</th><td>312</td><td>Help readers explore their options.</td><td>See Your Options</td></tr>
+<tr><th scope="row">Conversion</th><td>623</td><td>Invite readers to schedule a consultation.</td><td>Book Your Consultation</td></tr>
+<tr><th scope="row">Retention</th><td>934</td><td>Give existing clients a way to refer someone.</td><td>Refer a Friend</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="maths" aria-labelledby="maths-title">
+<h2 id="maths-title">The Maths Behind the Page</h2>
+<p>I call this part of the master prompt the <strong>311 Prime Copywriting Hamiltonian</strong>. The physics notation gives editorial roles names. Ω represents the available message angles, Δ represents revision and V represents the fixed page template. The prompt also assigns a role to persona and compliance rules and reserves the final polish for a human editor.</p>
+<div class="grid">
+<article class="card">
+<h3>Space the Campaign Intents</h3>
+<p class="formula"><var>n</var>(<var>i</var>) = 1 + 311<var>i</var>, for <var>i</var> = 0, 1, 2, 3</p>
+<p>Each step in the table above adds 311 to the intent ID. A conversion page takes ID 623 and asks for a booking. An awareness page takes ID 1 and gives readers a chance to learn about the service. The numbers encode campaign roles.</p>
+</article>
+<article class="card">
+<h3>Keep Headline Options Distinct</h3>
+<p class="formula"><var>s</var><sub>next</sub> − <var>s</var><sub>previous</sub> ≥ 311</p>
+<p>The prompt specifies 13 headline pruning rounds. Sort the finalists by editorial intensity score and check the gap between neighbours. For example, 200 and 450 sit 250 points apart, so they fail the spacing rule. Scores of 200 and 540 clear it by 29 points. The gap applies to rubric scores and has no units of traffic or revenue.</p>
+</article>
+</div>
+<details class="card">
+<summary>See how SpaSage measures rhythm and audit coverage</summary>
+<p><strong>Sentence rhythm.</strong> The prompt calls its cadence rules “717 Hz Voice Rhythm.” The working unit is words per sentence. The source uses 7–17 for short sentences, 17–71 for explanation and 71–717 for occasional credibility-heavy passages. The ranges share endpoints. A writer can still use a deliberate two-word beat and review whether it earns its place.</p>
+<p><strong>Audit score.</strong> Divide the number of passed checks by the number of checks in the active checklist. If 118 of 125 pass, the score is 94.4%. An unresolved critical failure still blocks release. The V15 report template names 104 checks. The supplied expanded checklist contains 125 numbered checks across 12 areas, so the example uses 125 as its denominator.</p>
+</details>
+</section>
+<section id="voice" aria-labelledby="voice-title">
+<h2 id="voice-title">Linguistic Profiling in Practice</h2>
+<p>My Linguistic Profile Extraction Protocol turns source copy into a voice profile an editor can use. It examines sentence mechanics, structure, subtext, recurring themes and voice signature. The same script can compare samples, draft a voice guide or flag a line that breaks an established pattern.</p>
+<div class="profile-examples">
+<details class="card" open>
+<summary>Read the profile of a sample opening</summary>
+<blockquote>You shave. You wax. It starts again. Find out whether laser hair removal suits your skin and hair.</blockquote>
+<dl>
+<dt>Surface</dt><dd>The sentences run 2, 2, 3 and 11 words. The verbs “shave” and “wax” create quick beats before a longer invitation.</dd>
+<dt>Structure</dt><dd>Two parallel clauses name familiar actions. The third names the cycle. The final sentence moves the reader towards a suitability conversation.</dd>
+<dt>Subtext</dt><dd>The opening assumes the reader recognises the routine. “Whether” keeps suitability open and leaves the decision with the reader.</dd>
+<dt>Frequency and themes</dt><dd>“You” appears twice and “your” appears once. The key language shifts from routine (“shave,” “wax,” “again”) to suitability (“skin and hair”).</dd>
+<dt>Voice signature</dt><dd>Direct address and pauses give the opening the tone of a candid conversation. The copy speaks to a practical frustration and offers a way to find out what suits the reader.</dd>
+<dt>Synthesis</dt><dd>Short beats name the routine. A longer line gives the reader room to decide.</dd>
+</dl>
+</details>
+<details class="card">
+<summary>Compare a line that drifts from the voice</summary>
+<blockquote>Our advanced solutions deliver guaranteed results for every patient.</blockquote>
+<p>The opening switches to “our,” drops the patient’s own language and pairs “guaranteed” with “every patient.” The profile catches the change in stance. The checklist catches the unsupported claim. A targeted edit restores the reader’s perspective and the consultation offer.</p>
+<blockquote>At your consultation, ask whether laser hair removal suits your skin and hair.</blockquote>
+</details>
+</div>
+</section>
+<section aria-labelledby="review-title">
+<h2 id="review-title">What the Engine Checks</h2>
+<p>SpaSage reviews the copy against the brief and the 104-point editorial audit in the same pass. The audit reports passes, flags and failures. In Modify Mode, it also puts the fixes in order of severity so editors can address the issues that block release first.</p>
+<ol class="steps">
+<li><strong>Check the promise across the page.</strong> The subheadline should develop the headline’s idea. Proof should support the stated benefits. The offer, FAQ and CTA should describe the same next step.</li>
+<li><strong>Check the evidence behind the copy.</strong> Flag unsupported outcomes, incorrect trademark treatment and provider details that need verification. Use approved source material for claims, credentials and testimonials.</li>
+<li><strong>Check structure after revision.</strong> Review the heading hierarchy, section length and placement of the service and location terms. Confirm that the primary CTA appears early and stays consistent through the page.</li>
+</ol>
+<details class="card">
+<summary>See the 12 areas covered by the audit</summary>
+<ul class="steps">
+<li>Trademark and brand compliance</li>
+<li>Absolute claims and outcome language</li>
+<li>Restricted vocabulary and fit with audience language</li>
+<li>Page structure and formatting</li>
+<li>SEO and keyword placement</li>
+<li>Google Ads and Meta policy checks</li>
+<li>Grammar, syntax and readability</li>
+<li>Section cohesion and conversion flow</li>
+<li>Benefit copy</li>
+<li>Provider information and credibility</li>
+<li>FAQ compliance</li>
+<li>Offer, CTA and conversion mechanics</li>
+</ul>
+</details>
+</section>
+<section id="rationale" aria-labelledby="rationale-title">
+<h2 id="rationale-title">What the Rationale Log Gives the Team</h2>
+<p>Create Mode can record why the draft assigns a reader question to a particular section. Modify Mode records the original copy, the proposed change and its priority. The editor can trace the decision through the supporting source, the relevant audit check and any open approval.</p>
+<div class="card"><h3>Example · An Unclear Consultation CTA</h3>
+<p><strong>Finding.</strong> The CTA says “Get Started” and leaves the first appointment unclear.</p>
+<p><strong>Proposed edit.</strong> Change the label to “Book a Consultation” and add one sentence on what happens at the visit, using the clinic’s approved description.</p>
+<p><strong>Rationale and release check.</strong> The edit makes the commitment clear. If the clinic has yet to approve the visit details or fee, record the gap and keep the item open for review.</p></div>
+<p>The completion marker records that the required editorial checks passed. When campaign data is available, the team can use booking rate or form abandonment to decide whether a headline, layout or CTA deserves a controlled test.</p>
+</section>
+<section aria-labelledby="handoff-title">
+<h2 id="handoff-title">Where the Team Takes Over</h2>
+<p>The engine hands over formatted copy and audit findings. For a targeted revision, the editor can see exactly which section changed and why. The prompt’s verification summary records heading and formatting checks, outstanding findings and whether a human editor has polished the copy.</p>
+<p>Editors verify claims and credentials against approved materials. Designers shape the order in which readers encounter the promise, proof and booking action. The paid media team checks current platform policies and uses conversion data to decide what to test next.</p>
+</section>
+</main>
+<footer class="wrap"><a href="../index.html">Return to Darren Thompson’s Portfolio</a></footer>
+</body>
+</html>

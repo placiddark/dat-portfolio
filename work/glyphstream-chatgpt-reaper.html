@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glyphstream | Coding for REAPER With ChatGPT</title>
+<meta name="description" content="Write your first Lua ReaScript, build a JSFX gain control and adapt ChatGPT prompts for your own REAPER sessions.">
+<style>
+:root{color-scheme:dark;--bg:#0d0d1f;--panel:#181833;--line:#383858;--text:#eef0ff;--muted:#bfc3de;--violet:#f2a4ff;--green:#a9edbf}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:1rem/1.65 system-ui,sans-serif}
+.wrap{width:min(100% - 2.5rem, 70rem);margin-inline:auto}
+a{color:var(--violet);text-underline-offset:.2em}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--green);outline-offset:4px}
+.top{border-bottom:1px solid var(--line)}
+.top .wrap,nav{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.5rem}
+.top .wrap{justify-content:space-between;padding-block:1rem}
+.hero{padding-block:clamp(3rem,9vw,7rem);background:radial-gradient(ellipse at 82% 20%,#352050 0%,transparent 66%);border-bottom:1px solid var(--line)}
+.brand{color:var(--green);letter-spacing:.18em;text-transform:uppercase;font-size:.8rem}
+h1,h2{font-family:Georgia,serif;line-height:1.12;margin:0 0 1rem}
+h1{font-size:clamp(2.7rem,7vw,5.5rem);max-width:15ch}
+h2{font-size:clamp(1.85rem,4vw,2.75rem)}
+h3{margin-bottom:.4rem}
+p,li{max-width:76ch}
+.hero p{font-size:1.15rem;color:var(--muted)}
+.start{display:inline-block;margin-top:.6rem;padding:.55rem 1rem;background:var(--violet);color:var(--bg);border-radius:.4rem;font-weight:700}
+main>.wrap{max-width:56rem}
+.guide{padding-block:2.8rem;border-bottom:1px solid var(--line)}
+li+li{margin-top:.5rem}
+pre,blockquote{margin:1rem 0;background:var(--panel);border:1px solid var(--line);padding:1rem 1.2rem;border-radius:.55rem}
+pre{overflow:auto;line-height:1.55;tab-size:2}
+blockquote p{margin:0}
+code{color:var(--green);overflow-wrap:anywhere}
+pre code{overflow-wrap:normal}
+details{border-bottom:1px solid var(--line);padding:.65rem 0}
+summary{cursor:pointer;font-weight:650}
+.table-scroll{overflow:auto}
+table{border-collapse:collapse;width:100%;margin-block:.75rem 1.5rem}
+caption{text-align:left;font-weight:700;margin-bottom:.5rem}
+th,td{padding:.55rem .7rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:var(--green)}
+td:first-child{min-width:7rem}
+.callout{border-left:3px solid var(--violet);padding-left:1rem}
+footer{padding-block:1.6rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a href="../index.html">Back to Portfolio</a>
+    <nav aria-label="Guide sections">
+      <a href="#setup">Setup</a><a href="#first-script">First Script</a><a href="#jsfx">JSFX</a><a href="#prompts">Prompts</a><a href="#production">Production Lab</a><a href="#finish">Finish</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <p class="brand">Glyphstream</p>
+      <h1>Coding for REAPER With ChatGPT</h1>
+      <p>Start with a Lua script that creates a track. Then build a gain control and write prompts for the jobs you repeat in your own sessions.</p>
+      <a class="start" href="#setup">Start the Guide</a>
+    </div>
+  </section>
+  <div class="wrap">
+    <section class="guide" id="setup">
+      <h2>Set Up REAPER for Scripting</h2>
+      <p>Install <a href="https://www.reaper.fm/">REAPER</a> for your operating system and open a blank project. Note your REAPER version and operating system before you ask ChatGPT for code. In REAPER, use the Options menu to locate your resource folder. You’ll use its <code>Effects</code> folder later.</p>
+      <ul>
+        <li><strong>ReaScript</strong> lets you automate tracks, media items, MIDI and other project operations. Start with Lua, which REAPER includes. EEL2 is also built in. Python requires a separate setup.</li>
+        <li><strong>JSFX</strong> uses EEL2 to process audio or MIDI in an FX chain.</li>
+        <li><strong>Custom actions</strong> let you chain existing REAPER actions in the Action List.</li>
+      </ul>
+      <p>See the <a href="https://www.reaper.fm/sdk/reascript/reascript.php">ReaScript guide</a> and <a href="https://www.reaper.fm/sdk/reascript/reascripthelp.html">API reference</a> for function signatures.</p>
+    </section>
+    <section class="guide" id="first-script">
+      <h2>Write and Run Your First Script</h2>
+      <p>Give ChatGPT a starting state and an outcome you can check. Tell it which project objects the script may change and how you want Undo to work.</p>
+      <blockquote><p>I use REAPER [version] on [OS]. Write a complete Lua ReaScript that appends one track called “Vox” to the active project. Leave existing tracks alone. Put the change in one undo step and print a confirmation to the ReaScript console. Add comments for the REAPER API calls and include a short test plan.</p></blockquote>
+      <pre aria-label="Lua example"><code>local project = 0 -- Active project
+local index = reaper.CountTracks(project)
+
+reaper.Undo_BeginBlock2(project)
+reaper.InsertTrackAtIndex(index, true)
+local track = reaper.GetTrack(project, index)
+if track then
+  reaper.GetSetMediaTrackInfo_String(track, "P_NAME", "Vox", true)
+  reaper.ShowConsoleMsg("Created track: Vox\n")
+end
+reaper.Undo_EndBlock2(project, "Create Vox track", -1)
+reaper.UpdateArrange()</code></pre>
+      <ol>
+        <li>Open <strong>Actions → Show action list</strong>. Under <strong>New action</strong>, choose <strong>New ReaScript</strong>.</li>
+        <li>Save it as <code>create_vox_track.lua</code>, paste the example into the editor and save again. Select the script in the Action List and run it.</li>
+        <li>Check for one new track at the bottom and a console message. Undo once and check that the track disappears.</li>
+      </ol>
+      <h3>Debug From the Error Message</h3>
+      <p>Give ChatGPT the exact error, the relevant code and the steps that triggered it. Ask for the smallest fix and a test. If REAPER reports a nil function, check the spelling and whether the function requires an extension. If a track or take is nil, check the project or selection before you pass the object to another API call.</p>
+    </section>
+    <section class="guide" id="api">
+      <h2>Read the API Before You Expand the Script</h2>
+      <p>Use these calls as starting points. Check signatures against your REAPER version, especially when you adapt code from a forum post or an older script.</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th scope="col">Task</th><th scope="col">Calls to Look Up</th><th scope="col">What to Check</th></tr></thead>
+        <tbody>
+          <tr><td>Find or add a track</td><td><code>CountTracks</code>, <code>GetTrack</code>, <code>InsertTrackAtIndex</code></td><td>Track indices start at zero. Check that the returned track exists.</td></tr>
+          <tr><td>Name or colour a track</td><td><code>GetSetMediaTrackInfo_String</code>, <code>SetTrackColor</code></td><td>Use <code>P_NAME</code> for the display name. Store a track GUID if a later script must find it after a rename.</td></tr>
+          <tr><td>Add an effect</td><td><code>TrackFX_AddByName</code></td><td>Check whether the effect exists and whether the script should reuse or insert an instance.</td></tr>
+          <tr><td>Work with items and time selections</td><td><code>AddMediaItemToTrack</code>, <code>GetSet_LoopTimeRange</code></td><td>Decide which track or time range the script may affect before it writes anything.</td></tr>
+          <tr><td>Edit MIDI notes</td><td><code>MIDI_GetNote</code>, <code>MIDI_SetNote</code>, <code>MIDI_Sort</code></td><td>Check for a MIDI take and test the lowest and highest pitches your edit can reach.</td></tr>
+          <tr><td>Run an action</td><td><code>Main_OnCommand</code>, <code>NamedCommandLookup</code></td><td>Copy the command ID from your Action List and verify the action belongs to the section you intend to use.</td></tr>
+        </tbody>
+      </table></div>
+      <p>If you see a “bad argument” error, compare the function signature with the values your script supplies. Test a few starting states before you reuse the script, such as an empty project, no selection and a project with several tracks.</p>
+    </section>
+    <section class="guide" id="jsfx">
+      <h2>Build Your First JSFX</h2>
+      <p>This stereo gain control starts at 0 dB. Its bypass switch passes both channels through at their input levels. Save the code as <code>simple_stereo_gain.jsfx</code> in the REAPER resource folder’s <code>Effects</code> directory. Refresh or reopen the FX browser and search for <strong>Simple Stereo Gain</strong>.</p>
+      <pre aria-label="JSFX example"><code>desc:Simple Stereo Gain
+slider1:0&lt;-60,12,0.1&gt;Gain (dB)
+slider2:0&lt;0,1,1{Off,On}&gt;Bypass
+
+@slider
+gain = exp(log(10) * slider1 / 20);
+bypassed = slider2;
+
+@sample
+!bypassed ? (
+  spl0 *= gain;
+  spl1 *= gain;
+);</code></pre>
+      <p>Play an audio item at a comfortable level. Set the gain to −6 dB and compare the meter with bypass off and on. As a next exercise, ask ChatGPT for a stereo width control with 0% for mono and 100% for the original stereo signal. Test it on a stereo file with distinct left and right content.</p>
+      <p>See the <a href="https://www.reaper.fm/sdk/js/js.php">JSFX programming reference</a> for effect structure and sample processing.</p>
+    </section>
+    <section class="guide" id="stereo-width">
+      <h2>Build a Stereo Width Control</h2>
+      <p>Save this second JSFX as <code>simple_stereo_width.jsfx</code> in the same Effects folder. It splits the stereo signal into a shared component and a difference component. The Width slider changes how much of the difference you hear.</p>
+      <pre aria-label="Stereo width JSFX example"><code>desc:Simple Stereo Width
+slider1:100&lt;0,200,1&gt;Width (%)
+slider2:0&lt;0,1,1{Off,On}&gt;Mono
+
+@slider
+width = slider2 ? 0 : slider1 / 100;
+
+@sample
+mid = (spl0 + spl1) * 0.5;
+side = (spl0 - spl1) * 0.5 * width;
+spl0 = mid + side;
+spl1 = mid - side;</code></pre>
+      <p>At 100%, compare against bypass. At 0%, both channels should match. Turn Mono on and confirm the Width slider has no effect. Check your output peaks when you widen the signal above 100%.</p>
+    </section>
+    <section class="guide" id="prompts">
+      <h2>Adapt These Prompts to Your Session</h2>
+      <p>Replace bracketed values before you paste a prompt. Run edits in a scratch project first and check Undo where the script changes project state.</p>
+      <details><summary>Batch Track Creation</summary><blockquote><p>Write a Lua ReaScript for REAPER [version] on [OS] that appends eight tracks named Vox 1 through Vox 8 and colours them red. Leave existing tracks and their routing alone. Put the changes in one undo step and tell me what happens if I run the script twice.</p></blockquote></details>
+      <details><summary>Custom Actions</summary><blockquote><p>Show me how to create a REAPER custom action that splits selected items at the edit cursor and selects the right-hand pieces. Tell me the exact Action List names to verify in my installation. Explain what happens if no selected item crosses the cursor.</p></blockquote></details>
+      <details><summary>MIDI Transposition</summary><blockquote><p>Write a Lua ReaScript that transposes selected notes in the active MIDI editor up seven semitones. Leave unselected notes alone. Skip notes that would exceed MIDI pitch 127, report how many you skipped and sort the take after the edits.</p></blockquote></details>
+      <details><summary>Track Creation With ReaImGui</summary><blockquote><p>I have ReaImGui [version] installed. Write a Lua ReaScript with a text field and a button that creates one named track per click. Reject an empty name, close cleanly and include a message if the extension is missing.</p></blockquote></details>
+      <details><summary>Region Rendering</summary><blockquote><p>Show me how to render project regions as separate WAV files named after each region in REAPER [version]. Handle duplicate region names and existing files. If you propose a script, have it show me the proposed output paths before it starts rendering.</p></blockquote></details>
+      <details><summary>Tempo Map Export</summary><blockquote><p>Write a Lua ReaScript that exports the active project’s tempo and time signature markers to JSON. Include each marker’s position in seconds, tempo in BPM, time signature and whether it starts a linear tempo transition. Ask me where to save the file and report file-write errors.</p></blockquote></details>
+      <details><summary>Track Folder and Routing</summary><blockquote><p>Write a Lua ReaScript that puts adjacent selected tracks in a new DRUMS folder. Explain how you will handle nested folders and preserve existing sends. If the selection cannot move without changing the surrounding folder structure, show a message before you edit.</p></blockquote></details>
+      <details><summary>FX Chain Recall</summary><blockquote><p>Show me how to save the selected track’s FX chain and load it on a duplicate track. Start with the built-in workflow and identify what you can automate from the Action List in my version.</p></blockquote></details>
+      <details><summary>Volume Automation</summary><blockquote><p>Write a Lua ReaScript that adds a volume envelope point at the edit cursor on the selected track. Keep the existing envelope shape and tell me what the script does if there is already a point at that time.</p></blockquote></details>
+      <details><summary>Bounce an Item to a New Take</summary><blockquote><p>Show me which REAPER action renders a selected item as a new take for my use case. Explain which FX it captures, what happens to the original take and how to check the result on a project copy.</p></blockquote></details>
+    </section>
+    <section class="guide" id="production">
+      <h2>Production Lab With OpenClaw and REAPER</h2>
+      <p>Use the scripting exercises to build a short spoken-word piece. You can try the workflow yourself or assign the same brief to separate agents. In an OpenClaw setup, each role proposes a change. You review the proposal before a REAPER runner applies it. The example below describes the handoff for a runner you build and test.</p>
+      <blockquote><p>Build eight bars at 68 BPM in 4/4. Start with a quiet 93 Hz drone, bring in an irregular rain bed and introduce a sparse MIDI figure at bar three. Keep the voice close and centred. Open the reverb on the last word and let it decay past the final bar.</p></blockquote>
+      <h3>Give Each Role a Specific Output</h3>
+      <div class="table-scroll"><table>
+        <thead><tr><th scope="col">Role</th><th scope="col">What You Ask For</th></tr></thead>
+        <tbody>
+          <tr><td>Composer</td><td>A MIDI figure and a cue sheet with entries and rests.</td></tr>
+          <tr><td>Sound Designer</td><td>Drone settings, a rain texture and a proposed reverb send.</td></tr>
+          <tr><td>Mix Engineer</td><td>A timestamped listening note and one adjustment to test.</td></tr>
+          <tr><td>Lyricist</td><td>Breath marks, word stresses and an alternate reading of your phrase.</td></tr>
+          <tr><td>Producer</td><td>A change list for the next pass and a reason for each edit.</td></tr>
+        </tbody>
+      </table></div>
+      <h3>Route the Session</h3>
+      <p>If you want to recreate the full template, use these 13 track roles. Keep reference takes and score data out of the production mix.</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th scope="col">Tracks</th><th scope="col">Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>01–02</td><td>Brief and muted scratch read; optional analysis feed with its master send off.</td></tr>
+          <tr><td>03–04</td><td>Drone; pre-master mix bus.</td></tr>
+          <tr><td>05–06</td><td>Rain bed with its own automation; muted MIDI score reference.</td></tr>
+          <tr><td>07–08</td><td>Selected vocal take; print bus that feeds the REAPER master.</td></tr>
+          <tr><td>09–10</td><td>MIDI instrument; wet FX return.</td></tr>
+          <tr><td>11–13</td><td>Muted A/B references; muted alternate takes; revision notes and markers.</td></tr>
+        </tbody>
+      </table></div>
+      <p>Send the drone, rain, vocal, MIDI instrument and wet return to the pre-master. Send the vocal separately to the wet return. Route the pre-master to the print bus and disable direct master sends on the sources, return and pre-master. If you use the analysis feed, give it a send from the pre-master and keep it out of the print path. Compare the finished WAV to hear the print-bus processing.</p>
+      <h3>Score the Eight Bars</h3>
+      <div class="table-scroll"><table>
+        <thead><tr><th scope="col">Bars</th><th scope="col">Arrangement</th><th scope="col">What to Hear</th></tr></thead>
+        <tbody>
+          <tr><td>1–2</td><td>Start with the drone. Add a few rain events in bar two.</td><td>Listen for silence between rain events.</td></tr>
+          <tr><td>3–4</td><td>Introduce a short figure and lower the rain just before the voice enters.</td><td>Keep a gap at the end of the figure for the first breath.</td></tr>
+          <tr><td>5–6</td><td>Read the first two parts of your phrase over the drone. Keep the lead vocal dry and centred.</td><td>Make sure you can hear consonants where the figure and voice overlap.</td></tr>
+          <tr><td>7–8</td><td>Raise the wet send during the last word’s vowel. Drop the MIDI figure in bar eight.</td><td>Listen for the complete word and let the room decay after it.</td></tr>
+        </tbody>
+      </table></div>
+      <p>Eight bars run about 28 seconds at this tempo before the tail. Record two readings over the same backing so you can compare phrasing without a change in the arrangement.</p>
+      <h3>Approve the Handoff Before REAPER Applies It</h3>
+      <p>Have OpenClaw collect proposals in plain language. Record your approved edits in a manifest. Keep the Lua runner limited to defined operations such as importing MIDI, adjusting a send and saving a project copy. Resolve tracks by GUID so a display-name change does not redirect an edit.</p>
+      <pre aria-label="Example handoff manifest"><code>Base project     Sketch_v001.rpp
+New revision     Sketch_v002.rpp
+Required assets  figure.mid, rain.wav, voice_take_02.wav
+Approved edit    Place the chosen take at bar 5
+Approved edit    Raise the vocal reverb send on the last vowel
+Render           Sketch_v002_review.wav, bars 1–8 plus decay
+Approval         Review the manifest before applying the edits</code></pre>
+      <p>Check the base revision, track IDs, source files and required plug-ins before you apply changes. If a plug-in is missing, choose a substitute or request a printed stem. Save a new project revision for each pass and give its review WAV the same version number.</p>
+      <h3>Compare Two Passes at the Same Playback Level</h3>
+      <p>Keep the voice take fixed and change one production choice. If the MIDI attack masks a word in bar six, move that attack into the preceding breath and render again. If the rain obscures a consonant, try a short dip under the phrase. If the tail cuts off, extend the render boundary and check the last few seconds. Keep a timestamped listening note with each version. Log peak level, integrated loudness and clipping indicators when your meter provides them.</p>
+      <h3>Extend the Sketch and Export a Visual Score</h3>
+      <p>Use bars 9–16 to add density while the voice rests. Pull the rain and most of the drone back in bars 17–24 and leave a fragment of speech exposed. Bring back the full phrase in bars 25–32 and let the final decay run past the boundary. At 68 BPM in 4/4, 32 bars run about 1 minute 53 seconds before the tail.</p>
+      <p>For an optional score visual, use a muted MIDI track for note events and project markers for vocal cues. Map note onsets to when shapes appear, durations to how long they stay and velocity to brightness. Hold the final shape through the reverb tail. Save the cue map with the project so you can render it again after an edit.</p>
+    </section>
+    <section class="guide" id="other-daws">
+      <h2>Use the Same Method in Another DAW</h2>
+      <p>Choose the host’s scripting tool for the job. For example, you can work with a Max for Live device in Ableton Live, a Scripter MIDI effect in Logic Pro or Lua session scripts in Ardour. Give ChatGPT the host version and relevant API documentation so it can draft code for that environment.</p>
+      <blockquote><p>I use [DAW and version] on [OS]. I want to [describe the task] using [scripting tool or API]. Here’s the starting state [describe the project or selection]. The script can change [scope]. Return the code, installation steps and a test I can run on a project copy. Flag any dependencies or API calls I need to verify.</p></blockquote>
+      <p>For REAPER examples and packages, see <a href="https://reapack.com/">ReaPack</a>, the <a href="https://stash.reaper.fm/">REAPER Stash</a> and the <a href="https://forum.cockos.com/">Cockos forum</a>.</p>
+      <h3>Adapt a Script You Can Maintain</h3>
+      <p>Read the source and licence before you adapt a community script. Start with one small change and keep a copy you can compare. Document what the script expects, what it changes and which dependencies you need before you share it. The <a href="https://github.com/ReaTeam/ReaScripts">ReaTeam script collection</a> and <a href="https://www.sws-extension.org/">SWS Extension</a> are starting points for further work.</p>
+    </section>
+    <section class="guide" id="finish">
+      <h2>Finish With a Print You Can Recreate</h2>
+      <ol>
+        <li>Play the approved WAV from the first audible sample through the end of the tail. Confirm the words you want the listener to catch are clear.</li>
+        <li>Verify the render range, file name and any embedded credits. Keep the final WAV beside the project revision that produced it.</li>
+        <li>Archive the project, source assets, approved manifest and any cue map. Reopen the saved project and check that its media and plug-ins resolve.</li>
+      </ol>
+      <p class="callout">Your first finished exercise can be just eight bars. When you can hear the whole phrase, the rain has its own space and the tail decays naturally, keep that WAV as the reference for the full track.</p>
+    </section>
+  </div>
+</main>
+<footer class="wrap">Glyphstream · Darren Thompson</footer>
+</body>
+</html>

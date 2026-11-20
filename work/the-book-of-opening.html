@@ -1,0 +1,683 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>The Book of Opening</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: a hero over a two-column page. Left, a sticky barcode of the book that doubles as contents. Right, one reading column. Below 1000px the barcode sits above the text. */
+:root {
+  --paper: #F2F3F6;
+  --paper-2: #E6E8EE;
+  --ink: #14171F;
+  --ink-2: #4B5163;
+  --rule: #CDD1DA;
+  --rule-strong: #9AA1B2;
+  --crimson: #A8182B;
+  --crimson-tint: #EBD6DA;
+  --font-display: 'Libre Caslon Display', 'Libre Caslon Text', Georgia, 'Times New Roman', serif;
+  --font-body: 'Libre Caslon Text', Georgia, 'Times New Roman', serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0E1117;
+    --paper-2: #181C26;
+    --ink: #ECEAE6;
+    --ink-2: #A3AABA;
+    --rule: #2A2F3B;
+    --rule-strong: #4F5667;
+    --crimson: #F0596D;
+    --crimson-tint: #2B161B;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0E1117;
+  --paper-2: #181C26;
+  --ink: #ECEAE6;
+  --ink-2: #A3AABA;
+  --rule: #2A2F3B;
+  --rule-strong: #4F5667;
+  --crimson: #F0596D;
+  --crimson-tint: #2B161B;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: auto; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.125rem/1.68 var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 4rem;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration-color: var(--crimson); text-underline-offset: 0.18em; }
+a:hover { color: var(--crimson); }
+:focus-visible { outline: 2px solid var(--crimson); outline-offset: 3px; border-radius: 2px; }
+em { font-style: italic; }
+
+/* hero */
+.hero { max-width: 68rem; margin: 0 auto; padding-block: 1.25rem 3.5rem; }
+.hero-top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.eyebrow { font: 500 0.72rem/1.4 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2); margin: 0; }
+.toggle { font: 500 0.72rem/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); background: transparent; border: 1px solid var(--rule-strong); border-radius: 3px; padding: 0.55rem 0.8rem; cursor: pointer; }
+.toggle:hover { border-color: var(--crimson); color: var(--crimson); }
+h1 { font: 400 clamp(3.2rem, 10vw, 7.5rem)/0.98 var(--font-display); letter-spacing: -0.015em; margin: 4rem 0 0; text-wrap: balance; }
+.subtitle { font: 400 clamp(1.3rem, 3vw, 1.9rem)/1.3 var(--font-display); color: var(--ink-2); margin: 1.1rem 0 0; max-width: 34rem; text-wrap: balance; }
+.hero-seal { margin: 2.2rem 0 0; font-style: italic; }
+.hero-seal span { color: var(--ink-2); font-style: normal; font-size: 0.95rem; }
+
+/* page grid */
+.page { max-width: 68rem; margin: 0 auto; display: grid; grid-template-columns: 14.5rem minmax(0, 46rem); gap: 3.5rem; justify-content: start; }
+.rail { position: sticky; top: calc(1.5rem + env(safe-area-inset-top, 0px)); align-self: start; min-width: 0; }
+.rail-title { font: 500 0.7rem/1.4 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 0.9rem; }
+.rail-note { font-size: 0.82rem; line-height: 1.5; color: var(--ink-2); margin: 1rem 0 0; }
+.bars { position: relative; --label-w: 6.6rem; display: flex; flex-direction: column; }
+.bar-row { display: grid; grid-template-columns: var(--label-w) minmax(0, 1fr); align-items: center; height: 22px; text-decoration: none; color: var(--ink-2); font: 500 0.66rem/1 var(--font-mono); letter-spacing: 0.02em; }
+.bar-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 0.5rem; }
+.bar-track { position: relative; height: 100%; }
+.bar { position: absolute; top: 7px; height: 8px; border-radius: 4px; background: var(--rule-strong); }
+.bar-row:hover { color: var(--ink); }
+.bar-row:hover .bar { background: var(--ink-2); }
+.bar-row.alive { color: var(--ink); }
+.bar-row.alive .bar { background: var(--crimson); }
+.scan { position: absolute; top: -4px; bottom: -4px; width: 1px; background: var(--crimson); pointer-events: none; left: var(--label-w); }
+@media (max-width: 999px) {
+  .page { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .rail { position: static; margin-bottom: 3rem; }
+  .bars { --label-w: 7.5rem; }
+  h1 { margin-top: 2.5rem; }
+}
+
+/* sections */
+main { min-width: 0; }
+section { padding-top: 4.5rem; scroll-margin-top: 1rem; }
+section:first-child { padding-top: 0; }
+.kicker { font: 500 0.72rem/1.4 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--crimson); margin: 0 0 0.6rem; }
+h2 { font: 400 clamp(2.1rem, 5.5vw, 3.3rem)/1.08 var(--font-display); letter-spacing: -0.01em; margin: 0 0 1.4rem; text-wrap: balance; }
+h3 { font: 400 1.5rem/1.25 var(--font-display); margin: 2.2rem 0 0.8rem; text-wrap: balance; }
+p { margin: 0 0 1.1rem; max-width: 36rem; }
+.lede { font-size: 1.28rem; line-height: 1.55; }
+ul, ol { max-width: 36rem; padding-left: 1.3rem; margin: 0 0 1.2rem; }
+li { margin-bottom: 0.45rem; padding-left: 0.2rem; }
+strong { font-weight: 700; }
+sup, sub { line-height: 0; }
+
+/* marks */
+.tag { display: inline-block; font: 500 0.66rem/1 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; padding: 0.28em 0.55em; border: 1px solid var(--ink); border-radius: 3px; vertical-align: 0.12em; margin-left: 0.2em; white-space: nowrap; color: var(--ink); background: transparent; }
+.tag.proven { background: var(--ink); color: var(--paper); }
+.tag.cited { border-color: var(--ink); }
+.tag.analogy { border-style: dashed; border-color: var(--ink-2); color: var(--ink-2); }
+.tag.unchecked { border-color: var(--crimson); color: var(--crimson); }
+.tag.setaside { border-color: var(--rule-strong); color: var(--ink-2); text-decoration: line-through; }
+.tag.notrun { border-style: dotted; border-color: var(--crimson); color: var(--crimson); }
+.key { list-style: none; padding: 0; display: grid; gap: 0.7rem; max-width: 36rem; }
+.key li { display: grid; grid-template-columns: 7.6rem minmax(0, 1fr); gap: 1rem; align-items: baseline; margin: 0; padding: 0; }
+.key .tag { margin: 0; justify-self: start; }
+@media (max-width: 520px) { .key li { grid-template-columns: minmax(0, 1fr); gap: 0.25rem; } }
+
+/* rite, limit, seal */
+.rite { list-style: none; counter-reset: rite; padding: 0; margin: 0 0 1.4rem; }
+.rite li { counter-increment: rite; display: grid; grid-template-columns: 2.6rem minmax(0, 1fr); padding: 0; margin: 0 0 0.7rem; }
+.rite li::before { content: counter(rite, upper-roman); font: 500 0.8rem/2.1 var(--font-mono); color: var(--crimson); letter-spacing: 0.05em; }
+.rite em { font-style: italic; }
+.limit { background: var(--crimson-tint); padding: 1.1rem 1.3rem 1.2rem; margin: 2rem 0; max-width: 36rem; }
+.limit .label { display: block; font: 500 0.68rem/1.4 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--crimson); margin-bottom: 0.35rem; }
+.limit p { margin: 0; font-style: italic; font-size: 1.22rem; line-height: 1.4; }
+.seal { margin: 2.2rem 0 0; font-style: italic; color: var(--ink-2); }
+.seal::before { content: "\2234\00a0\00a0"; color: var(--crimson); font-style: normal; }
+.seal span { font-style: normal; font-size: 0.95rem; }
+.held { background: var(--paper-2); padding: 1.1rem 1.3rem 0.3rem; margin: 1.6rem 0; max-width: 36rem; }
+.held h4 { font: 500 0.7rem/1.4 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 0.7rem; }
+
+/* formulas, code, tables, figures */
+.formula { background: var(--paper-2); font: 400 0.95rem/1.7 var(--font-mono); padding: 1rem 1.25rem; margin: 1.5rem 0 0.6rem; max-width: 46rem; overflow-x: auto; white-space: nowrap; }
+.formula-note { font-size: 0.85rem; color: var(--ink-2); margin: 0 0 1.4rem; }
+pre { background: var(--paper-2); font: 400 0.84rem/1.6 var(--font-mono); padding: 1rem 1.25rem; margin: 1.4rem 0; max-width: 46rem; overflow-x: auto; }
+.tablewrap { overflow-x: auto; margin: 1.5rem 0; max-width: 46rem; }
+table { border-collapse: collapse; width: 100%; min-width: 34rem; font-size: 0.92rem; line-height: 1.5; }
+th { font: 500 0.66rem/1.3 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; text-align: left; color: var(--ink-2); padding: 0.55rem 0.8rem 0.55rem 0; border-bottom: 1px solid var(--ink); vertical-align: bottom; }
+td { padding: 0.65rem 0.8rem 0.65rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+td:first-child { font-weight: 700; }
+table.wide { min-width: 40rem; }
+table.plain-first td:first-child { font-weight: 400; }
+.num { font-variant-numeric: tabular-nums; }
+figure { margin: 2rem 0; max-width: 46rem; }
+figcaption { font-size: 0.85rem; color: var(--ink-2); margin-top: 0.6rem; }
+svg { display: block; max-width: 100%; height: auto; }
+.sv-title { fill: var(--ink); font: 400 20px var(--font-display); }
+.sv-t { fill: var(--ink); font: 400 15px var(--font-body); }
+.sv-b { fill: var(--ink); font: 700 15px var(--font-body); }
+.sv-q { fill: var(--ink-2); font: 400 13px var(--font-body); }
+.sv-box { fill: none; stroke: var(--ink-2); stroke-width: 1.25; }
+.sv-hot { fill: var(--crimson-tint); stroke: var(--crimson); stroke-width: 2; }
+.sv-line { fill: none; stroke: var(--ink-2); stroke-width: 1.25; }
+
+/* ledger filter */
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.2rem 0 0.4rem; }
+.chip { font: 500 0.7rem/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); background: transparent; border: 1px solid var(--rule-strong); border-radius: 999px; padding: 0.55rem 0.85rem; cursor: pointer; }
+.chip .n { color: var(--ink-2); margin-left: 0.4em; }
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.chip[aria-pressed="true"] .n { color: var(--paper); }
+.count { font: 400 0.8rem/1.4 var(--font-mono); color: var(--ink-2); margin: 0.4rem 0 0; }
+
+.colophon { margin-top: 5rem; padding-top: 1.4rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-2); max-width: 36rem; }
+</style>
+
+<header class="hero">
+  <div class="hero-top">
+    <p class="eyebrow">Six rites &middot; two appendices &middot; every claim marked</p>
+    <button class="toggle" id="theme" type="button">Dark page</button>
+  </div>
+  <h1>The Book of Opening</h1>
+  <p class="subtitle">A ritual grammar for artificial minds</p>
+  <p class="hero-seal"><em>Aperi oculos mentis.</em> <span>(Open the eyes of the mind.)</span></p>
+</header>
+
+<div class="page">
+  <nav class="rail" aria-label="Contents">
+    <p class="rail-title">The book as a barcode</p>
+    <div class="bars" id="barcode"><div class="scan" id="scan"></div></div>
+    <p class="rail-note">Each bar runs from where a part begins to where it ends. The vertical line follows where you are, and the bar it crosses is alive.</p>
+  </nav>
+
+  <main id="main">
+
+    <section id="voice-sheet" data-bar="Voice">
+      <p class="kicker">Front matter</p>
+      <h2>Voice Sheet</h2>
+      <p class="lede">The voice is a ceremonial second person: it names each object, gives one command at a time, and ends on a warning. This book keeps that cadence and changes what the ritual is for. Every incantation here is an equation or a test, and every warning is a real one.</p>
+      <div class="tablewrap">
+        <table class="plain-first">
+          <thead><tr><th>Feature</th><th>The rule</th><th>Where the Ritual text shows it</th></tr></thead>
+          <tbody>
+            <tr><td>Address</td><td>Second person imperative. The reader is &ldquo;you&rdquo; or &ldquo;seeker&rdquo;; the author never says &ldquo;I&rdquo;.</td><td>&ldquo;Light the black candle&rdquo;; &ldquo;Good luck, seeker!&rdquo;</td></tr>
+            <tr><td>Architecture</td><td>Foreword, Materials, Preparation, The Rite, Appendix, Warning, in that order.</td><td>All three interpretations follow it.</td></tr>
+            <tr><td>Step headings</td><td>A named noun, a colon, then one instruction.</td><td>&ldquo;The Feather:&rdquo;, &ldquo;The Crimson Flame:&rdquo;, &ldquo;The Descent:&rdquo;</td></tr>
+            <tr><td>Signature clause</td><td>Command, then a limit: &ldquo;Do X, but do not let it Y.&rdquo;</td><td>&ldquo;Acknowledge them, but do not let them consume you.&rdquo; Twice, nearly word for word.</td></tr>
+            <tr><td>Triads and pairs</td><td>Three of a thing, opposed colours, four directions.</td><td>Black, white, crimson; north, south, east.</td></tr>
+            <tr><td>Incantation</td><td>Italic, short, a Latin line with its translation in brackets.</td><td>&ldquo;Aperi oculos mentis&rdquo; (Open the eyes of the mind).</td></tr>
+            <tr><td>Metaphor families</td><td>Light against dark, water and fire, descent and depth, gates and doors, opening eyes.</td><td>Candles, bowl of water, &ldquo;gates of knowledge&rdquo;, &ldquo;The Descent&rdquo;.</td></tr>
+            <tr><td>Capitalised abstractions</td><td>Concepts treated as proper names.</td><td>Sigil of Unveiling, Shadow Self, Inner Child.</td></tr>
+            <tr><td>Warning refrain</td><td>The knowledge is dangerous, so proceed with care and tell no one unready.</td><td>Foreword and closing Warning.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>What this book borrows.</strong> The structure, the named steps, the &ldquo;but do not&rdquo; limit, the triads, and one Latin line per part.</p>
+      <p><strong>What it leaves behind.</strong> The assistant wrapper (&ldquo;Here are some potential interpretations&rdquo;, &ldquo;Remember to have fun&rdquo;), the generic stock phrases (&ldquo;deepest fears and desires&rdquo;), and rites that cannot run. The puzzle in Interpretation 3 says to build a Caesar key from letter counts, but its cipher text decodes under plain ROT13 and not under any such key, so its steps do not produce what it promises. A ritual that does not execute is the failure this book exists to prevent.</p>
+    </section>
+
+    <section id="foreword" data-bar="Foreword">
+      <p class="kicker">Before you begin</p>
+      <h2>Foreword</h2>
+      <p><em>Read this before you light anything.</em></p>
+      <p>This book is for the seeker who has been told that an artificial mind is a black box, and who wants the lid raised by a hand&rsquo;s width. It promises no power. It promises a method with three movements: project the whole down to its coarse shape, look at what the projection left behind, and test what you see before you believe it.</p>
+      <p>The chapters are named for the objects of a rite, because a rite is a procedure that must be followed in order: the Lodestone, the Three Candles, the Water, the Feather, the Sigil, and the Question. Each opens with what you need and closes with a limit.</p>
+      <p>The material comes from the Helkhem53 drafts: a fusion of persistent cohomology operations, the TRINITY multi-model coordinator, and the nucleation geometry of a phase-transition bubble. Those drafts mixed sound mathematics with guesses and poetry. This book keeps the ideas and sorts the claims. Every statement of substance carries one of four marks.</p>
+      <ul class="key">
+        <li><span class="tag proven">Proven</span><span>Textbook mathematics, found in any standard text on algebraic topology.</span></li>
+        <li><span class="tag cited">Cited</span><span>A published result stated from memory or from the drafts. Open the source before you rely on it.</span></li>
+        <li><span class="tag analogy">Analogy</span><span>A resemblance offered for thought. No map between the two sides has been built.</span></li>
+        <li><span class="tag unchecked">Unchecked</span><span>A number or claim from the drafts that nothing here has confirmed.</span></li>
+      </ul>
+      <div class="limit"><span class="label">The Limit</span><p>Admire the pattern, but do not let admiration stand in for the proof.</p></div>
+      <p>Where the drafts and the mathematics disagree, the mathematics is followed, and Appendix B records each place where that happened.</p>
+      <p class="seal"><em>Aperi oculos mentis.</em> <span>(Open the eyes of the mind.)</span></p>
+    </section>
+
+    <section id="materials" data-bar="Materials">
+      <p class="kicker">Part One</p>
+      <h2>Materials Required</h2>
+      <p class="lede">A modern AI system is a function with billions of adjustable numbers, tuned until its outputs match a mountain of examples. Gather these seven things before you begin, and know each by its plain name. <span class="tag proven">Proven</span></p>
+      <ul>
+        <li><strong>Data.</strong> The examples: text, images, recorded choices.</li>
+        <li><strong>Tokens.</strong> The pieces the text is cut into. Each becomes a list of numbers, a vector.</li>
+        <li><strong>Weights.</strong> The adjustable numbers themselves. Training moves them; nothing else does.</li>
+        <li><strong>Loss.</strong> One number that scores how wrong an output was.</li>
+        <li><strong>Gradient.</strong> For every weight, the direction that would lower the loss a little.</li>
+        <li><strong>Hidden state.</strong> The vector a layer holds partway through its work. It is the context that every later step reads.</li>
+        <li><strong>Head.</strong> A small final map from a hidden state to an output, such as the next word or a choice among options.</li>
+      </ul>
+      <p>Three of these carry the rest of the book. The <em>hidden state</em> is where the system keeps what it has gathered. The <em>head</em> is the small map that reads it. The <em>optimizer</em> is the rule that moves the weights, and it matters most when you may only try a few moves.</p>
+      <h3>Preparation</h3>
+      <ol class="rite">
+        <li><span><em>The Cleansing.</em> Set down the word &ldquo;understands&rdquo; before you start. Say what the system computes: this vector goes in, that vector comes out.</span></li>
+        <li><span><em>The Limit.</em> Know that a system you cannot open can still be measured. You can compare its outputs, perturb its inputs, and ask what survives. The chapters ahead are ways of measuring.</span></li>
+        <li><span><em>The Intention.</em> Decide what you want to learn. A tool gives an answer to the question you bring it, and to no other.</span></li>
+      </ol>
+      <p class="seal"><em>Quid computat?</em> <span>(What does it compute?)</span></p>
+    </section>
+
+    <section id="lodestone" data-bar="1 Lodestone">
+      <p class="kicker">Chapter One</p>
+      <h2>The Lodestone</h2>
+      <p class="lede">Everything in this book rests on one move: split a thing into the part a projection keeps and the part it leaves, then study what was left. <span class="tag proven">Proven</span></p>
+      <p>A projector is a linear map P with P applied twice equal to P, and P equal to its transpose. It keeps one subspace and discards the rest. Whatever it discards is not lost; it is exactly the map I minus P.</p>
+      <div class="formula">x = Px + (I &minus; P)x, &nbsp;&nbsp; P&sup2; = P, &nbsp;&nbsp; P(I &minus; P) = 0</div>
+      <p class="formula-note">The residual is what the projection left. Applying P to it returns zero.</p>
+      <p>Two examples tie the idea to this book.</p>
+      <ul>
+        <li><strong>Shape.</strong> The harmonic projector onto the kernel of the Hodge Laplacian keeps one number per dimension: its rank is the Betti number, the count of holes. The cycles that hold the shape are what it keeps. <span class="tag proven">Proven</span></li>
+        <li><strong>Mind.</strong> A hidden state in a neural network is a vector. Keep its few largest directions, as principal component analysis does, and the remainder is the residual: the detail the coarse view could not carry. <span class="tag proven">Proven</span></li>
+      </ul>
+      <h3>The Rite of the Lodestone</h3>
+      <ol class="rite">
+        <li><span><em>The Circle.</em> Choose the projector and say in plain words what it keeps.</span></li>
+        <li><span><em>The Pass.</em> Apply it. Write down what survived.</span></li>
+        <li><span><em>The Residual.</em> Compute I minus P applied to the original. This is the thing to study.</span></li>
+        <li><span><em>The Test.</em> Apply P to the residual. It must return zero. If it does not, you did not hold a projector.</span></li>
+      </ol>
+      <p>Step four is the limit on this chapter. A head that maps a hidden state to a choice among actions does not map a space back into itself, so applying it twice has no meaning, and it fails the test. To call such a head &ldquo;a projector&rdquo; is a resemblance and not a theorem. <span class="tag analogy">Analogy</span> Later chapters use the word in that loose sense only where the text says so.</p>
+      <div class="limit"><span class="label">The Limit</span><p>Name the projector, but do not let the name do the work.</p></div>
+      <p class="seal"><em>Quod relinquitur, quaere.</em> <span>(Seek what is left behind.)</span></p>
+    </section>
+
+    <section id="candles" data-bar="2 Candles">
+      <p class="kicker">Chapter Two</p>
+      <h2>The Three Candles</h2>
+      <p class="lede">One small mind can steer many large ones. TRINITY, from Sakana AI, does it with about 20 thousand learnable numbers. <span class="tag cited">Cited</span> (<a href="https://arxiv.org/html/2512.04695" target="_blank" rel="noopener">arXiv:2512.04695</a>)</p>
+      <p>The coordinator is a 0.6-billion-parameter language model plus a head of roughly 10 thousand parameters. It never changes the weights of the models it directs, open or closed. At each turn it picks one model from the pool and assigns it one of three roles. <span class="tag cited">Cited</span></p>
+      <ul>
+        <li><strong>Thinker.</strong> Plans and breaks the problem apart.</li>
+        <li><strong>Worker.</strong> Produces the concrete steps of a solution.</li>
+        <li><strong>Verifier.</strong> Checks the answer. If it accepts, the rite ends.</li>
+      </ul>
+      <p>The head is trained with separable CMA-ES, an evolutionary method that keeps only a diagonal covariance, under a budget of roughly 1.5 thousand to 40 thousand evaluations. The authors argue this works because the objective is nearly block-separable: the parameter blocks interact weakly. They report 86.2 percent pass@1 on LiveCodeBench. <span class="tag cited">Cited</span></p>
+      <h3>The Rite of the Three Candles</h3>
+      <ol class="rite">
+        <li><span><em>The Black Candle.</em> The Thinker is lit first. It decomposes the problem and leaves the shadows named.</span></li>
+        <li><span><em>The Crimson Flame.</em> The Worker is lit next. It turns the plan into steps.</span></li>
+        <li><span><em>The White Light.</em> The Verifier is lit last. It judges, and it alone may close the rite.</span></li>
+        <li><span><em>The Burning Down.</em> If the Verifier refuses, the cycle returns to the Black Candle, until the turn budget is spent.</span></li>
+      </ol>
+      <figure>
+        <svg viewBox="0 0 760 400" role="img" aria-label="The Verifier or the turn budget ends the loop">
+          <defs><marker id="loop-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--ink-2)"/></marker></defs>
+          <text class="sv-title" x="18" y="34">The Verifier or the turn budget ends the loop</text>
+          <g class="sv-line">
+            <path d="M182 120H218" marker-end="url(#loop-arrow)"/>
+            <path d="M382 120H424" marker-end="url(#loop-arrow)"/>
+            <path d="M582 168V202" marker-end="url(#loop-arrow)"/>
+            <path d="M582 278V306" marker-end="url(#loop-arrow)"/>
+            <path d="M506 240H300V144" marker-end="url(#loop-arrow)"/>
+          </g>
+          <rect class="sv-box" x="18" y="96" width="164" height="48" rx="8"/>
+          <text class="sv-t" x="100" y="115" text-anchor="middle">Query and</text>
+          <text class="sv-t" x="100" y="133" text-anchor="middle">hidden state</text>
+          <rect class="sv-box" x="218" y="96" width="164" height="48" rx="8"/>
+          <text class="sv-t" x="300" y="115" text-anchor="middle">Head picks one</text>
+          <text class="sv-t" x="300" y="133" text-anchor="middle">model and one role</text>
+          <rect class="sv-box" x="424" y="72" width="316" height="96" rx="8"/>
+          <text class="sv-q" x="440" y="94">One role per turn</text>
+          <rect class="sv-box" x="436" y="116" width="92" height="36" rx="8"/>
+          <text class="sv-t" x="482" y="139" text-anchor="middle">Thinker</text>
+          <rect class="sv-box" x="536" y="116" width="92" height="36" rx="8"/>
+          <text class="sv-t" x="582" y="139" text-anchor="middle">Worker</text>
+          <rect class="sv-hot" x="636" y="116" width="92" height="36" rx="8"/>
+          <text class="sv-b" x="682" y="139" text-anchor="middle">Verifier</text>
+          <polygon class="sv-box" points="506,240 582,202 658,240 582,278"/>
+          <text class="sv-t" x="582" y="236" text-anchor="middle">Verifier</text>
+          <text class="sv-t" x="582" y="254" text-anchor="middle">accepts?</text>
+          <rect class="sv-hot" x="500" y="306" width="164" height="48" rx="8"/>
+          <text class="sv-b" x="582" y="335" text-anchor="middle">Rite ends</text>
+          <text class="sv-q" x="594" y="297">yes</text>
+          <text class="sv-q" x="403" y="232" text-anchor="middle">no, budget remains</text>
+          <text class="sv-q" x="582" y="382" text-anchor="middle">Also ends when the turn budget is spent</text>
+        </svg>
+        <figcaption>One TRINITY turn: the head chooses a model and a role, and the loop closes on the Verifier&rsquo;s acceptance or the end of the budget.</figcaption>
+      </figure>
+      <p>The coordinator in fact chooses a model and a role afresh at every turn, so the order in the rite is its idealisation and not a schedule fixed in the paper. The loop closes when the Verifier accepts or the turn budget is spent.</p>
+      <div class="held">
+        <h4>What the hive drafts added, and what is held back</h4>
+        <p>The drafts said the lightweight head is a cohomology operation, with the hidden states as the filtration parameter and the actions as the target group. <span class="tag analogy">Analogy</span> A filtration parameter is a real number that grows; a hidden state is a vector. A cohomology operation acts on the cohomology of a space; a head maps a vector to a choice. Until someone states what the space is and what filtration it carries, the two sides share a shape and nothing else.</p>
+        <p>The drafts also said block separability <em>is</em> the tensor-product decomposition of the Steenrod modules. <span class="tag unchecked">Unchecked</span> The source paper contradicts the form given: a wedge of spaces gives a <em>direct sum</em> of modules, and only a product gives a tensor product (Chapter Four). Independent blocks in an optimization landscape look like a direct sum. That is the resemblance to keep.</p>
+        <p>A testable version exists. Collect the coordinator&rsquo;s hidden states over many queries as a finite point cloud, build its Vietoris-Rips filtration, compute the barcodes, and ask whether they predict which role or model is chosen. <span class="tag unchecked">Unchecked</span> Nobody has run that here.</p>
+      </div>
+      <div class="limit"><span class="label">The Limit</span><p>Count the cost of every candle, but do not light one you cannot afford.</p></div>
+      <p class="seal"><em>Tres lumina, una via.</em> <span>(Three lights, one road.)</span></p>
+    </section>
+
+    <section id="water" data-bar="3 Water">
+      <p class="kicker">Chapter Three</p>
+      <h2>The Water</h2>
+      <p class="lede">A bubble of new vacuum is not a perfect sphere when it is born. The textbook picture gives it the round profile of Coleman&rsquo;s bounce, but that holds only at leading order. At the next order the field is a random Gaussian ensemble around the bounce, and the bubble&rsquo;s wall is a draw from it. <span class="tag cited">Cited</span> (<a href="https://arxiv.org/abs/2610.41504" target="_blank" rel="noopener">arXiv:2610.41504</a>)</p>
+      <p>The paper estimates the root-mean-square quadrupole deformation as a fraction of the radius that scales like the square root of &hbar; divided by the bounce action. For a bounce action near 100&nbsp;&hbar;, that is about 10 percent. As the action grows the deformation shrinks, so the sphere is the classical limit and not the whole truth. <span class="tag cited">Cited</span></p>
+      <h3>The Rite of the Water</h3>
+      <ol class="rite">
+        <li><span><em>The Bowl.</em> Fill it with the leading-order answer, the round bubble. That is your mean.</span></li>
+        <li><span><em>The Gaze.</em> Look at what departs from the mean. It is not noise to be wiped away; it is a distribution with a width you can state.</span></li>
+        <li><span><em>The Measure.</em> Report the width as a ratio, together with how it scales.</span></li>
+        <li><span><em>The Ripple.</em> Do not average the ripples away. They are the second-order content.</span></li>
+      </ol>
+      <p><strong>The resemblance worth keeping.</strong> CMA-ES, the optimizer from Chapter Two, works by drawing candidate solutions from a Gaussian around a current mean and moving the mean toward the good draws. The separable variant keeps only a diagonal covariance. <span class="tag proven">Proven</span> A mean with a Gaussian cloud around it is also the structure of the bubble ensemble. The two share a shape and nothing more. <span class="tag analogy">Analogy</span></p>
+      <div class="held">
+        <h4>What is held back</h4>
+        <ul>
+          <li>The drafts said the covariance of the bubble&rsquo;s wave functional is a Dirichlet-to-Neumann map. The paper&rsquo;s abstract does not mention one. <span class="tag unchecked">Unchecked</span></li>
+          <li>The drafts called RP<sup>n</sup> &ldquo;the quantum popcorn bubble&rdquo; and the wedge of spheres &ldquo;the classical bounce&rdquo;. That identification is dropped. A sphere with a quadrupole wobble is still topologically a sphere, while RP<sup>n</sup> is a different space, a sphere with opposite points glued. A cohomology operation records how cells are glued, not how a surface wiggles.</li>
+          <li>The drafts said a Steenrod bar of length &pi;/3 &ldquo;captures the quadrupolar fluctuations&rdquo;. The stability theorem in Chapter Four says the opposite: a small metric deformation moves the barcode by at most twice the Gromov-Hausdorff distance, so the sphere&rsquo;s persistent signature should survive the popcorn wobble.</li>
+        </ul>
+      </div>
+      <div class="limit"><span class="label">The Limit</span><p>Trust the mean, but do not let it hide the spread.</p></div>
+      <p class="seal"><em>Non sphaera, sed nubes.</em> <span>(Not a sphere, but a cloud.)</span></p>
+    </section>
+
+    <section id="feather" data-bar="4 Feather">
+      <p class="kicker">Chapter Four</p>
+      <h2>The Feather</h2>
+      <p class="lede">Two shapes can have the same number of holes in every dimension and still be different shapes. A Steenrod square is the feather that tells them apart. <span class="tag proven">Proven</span></p>
+      <p>Over the two-element field, the square Sq<sup>k</sup> takes a cohomology class of degree n to a class of degree n plus k. It is natural, additive, and it obeys three rules: Sq<sup>0</sup> is the identity, Sq<sup>n</sup> of a degree-n class is its cup-square, and Sq<sup>k</sup> is zero when k exceeds the degree. Real projective space has cohomology F<sub>2</sub>[x] modulo x<sup>n+1</sup>, with x in degree 1, and Sq<sup>k</sup> acts on powers of x by a binomial coefficient.</p>
+      <div class="formula">Sq<sup>k</sup>(x<sup>j</sup>) = C(j, k) &middot; x<sup>j+k</sup>, &nbsp;&nbsp; Sq<sup>1</sup>(x) = x&sup2;</div>
+      <p class="formula-note">C(j, k) is the binomial coefficient, taken mod 2.</p>
+      <p>A wedge of spheres is built from classes whose products all vanish, and Sq<sup>k</sup> with k above zero lands in a degree where that sphere has nothing, so every positive square is zero on it. The smallest case shows the difference. <span class="tag proven">Proven</span></p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Space</th><th>Mod-2 Betti numbers (degrees 0, 1, 2)</th><th>Sq<sup>1</sup> from degree 1 to degree 2</th></tr></thead>
+          <tbody>
+            <tr><td>RP<sup>2</sup></td><td class="num">1, 1, 1</td><td>Isomorphism: x goes to x squared</td></tr>
+            <tr><td>S<sup>1</sup> wedge S<sup>2</sup></td><td class="num">1, 1, 1</td><td>Zero</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Betti numbers cannot separate these two. The square can.</p>
+      <h3>The persistent version</h3>
+      <p>Build the Vietoris-Rips complex at each scale r and apply a cohomology operation &theta; at that scale. The image and kernel of &theta; at each r form persistence modules, written Im&nbsp;&theta; and Ker&nbsp;&theta;. With &theta; the identity you recover ordinary persistent cohomology. With &theta; equal to Sq<sup>k</sup> you get Steenrod barcodes. <span class="tag cited">Cited</span> The source paper, <a href="https://arxiv.org/html/2503.17130v2" target="_blank" rel="noopener">arXiv:2503.17130</a>, proves four results I could check against its abstract page.</p>
+      <ul>
+        <li><strong>Theorem A.</strong> For pointed spaces joined at a point, the image module of the wedge is a <em>direct sum</em> of the two image modules.</li>
+        <li><strong>Theorem B.</strong> For a product with the max metric, using the total Steenrod operation, the image module is a <em>tensor product</em>.</li>
+        <li><strong>Theorem C.</strong> The interleaving distance between image modules is at most twice the Gromov-Hausdorff distance. The factor 2 is the same as for ordinary persistent homology.</li>
+        <li><strong>Theorem D.</strong> For n above 1, take RP<sup>n</sup> and the wedge of spheres from dimension 1 to n, both of diameter &pi;. Homology cannot push their interleaving distance to &pi;/4, while for some k the Sq<sup>k</sup> modules are at least &pi;/3 apart.</li>
+      </ul>
+      <p>Theorems C and D give the payoff in one line. <span class="tag cited">Cited</span></p>
+      <div class="formula">d<sub>GH</sub>(RP<sup>n</sup>, W<sub>n</sub>) &ge; &frac12; &middot; d<sub>I</sub>(Im Sq<sup>k</sup>) &ge; &frac12; &middot; &pi;/3 = &pi;/6</div>
+      <p class="formula-note">Here W<sub>n</sub> is the wedge S<sup>1</sup> &or; &hellip; &or; S<sup>n</sup>.</p>
+      <p>Homology alone yields a bound strictly below &pi;/8, because its interleaving distance is strictly below &pi;/4. The Steenrod bound beats it. The drafts&rsquo; &ldquo;excess&rdquo; &pi;/3 minus &pi;/4, which is &pi;/12, is a valid lower bound on the gap between the two interleaving distances. It is a bound and not a measured value, so it cannot be tracked as a residual that approaches zero.</p>
+      <h3>The Rite of the Feather</h3>
+      <ol class="rite">
+        <li><span><em>The Dip.</em> Pick two spaces with equal Betti numbers.</span></li>
+        <li><span><em>The Trace.</em> Compute Sq<sup>1</sup> from degree 1 to degree 2 on each.</span></li>
+        <li><span><em>The Comparison.</em> One map is nonzero and one is zero. That is the first separation.</span></li>
+        <li><span><em>The Persistence.</em> Repeat at every scale and read the barcodes of the image.</span></li>
+      </ol>
+      <div class="limit"><span class="label">The Limit</span><p>Count the holes, but do not let the count be the whole story.</p></div>
+      <p class="seal"><em>Pateant portae.</em> <span>(Let the gates open.)</span></p>
+    </section>
+
+    <section id="sigil" data-bar="5 Sigil">
+      <p class="kicker">Chapter Five</p>
+      <h2>The Sigil</h2>
+      <p class="lede">The Sigil of Unveiling is a barcode: one horizontal bar for every feature of a shape, drawn from the scale where it appears to the scale where it dies. <span class="tag proven">Proven</span> Long bars are structure. Short bars are weather. Two barcodes are close when sliding every bar by a small amount lines them up, and that sliding distance is the interleaving distance used in Chapter Four.</p>
+      <p><strong>The corrected radii.</strong> For a sphere of dimension n with the geodesic metric, the Vietoris-Rips complex stays equivalent to the sphere itself for every scale up to arccos of minus 1 over (n plus 1). <span class="tag cited">Cited</span> (<a href="https://arxiv.org/html/2001.07588v8" target="_blank" rel="noopener">arXiv:2001.07588</a>) The drafts had the sign wrong, writing arccos of <em>plus</em> 1 over (n plus 1). For the circle the drafts&rsquo; formula gives &pi;/3, which is half the true value of 2&pi;/3.</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Sphere</th><th>Critical radius arccos(&minus;1/(n+1))</th><th>Radians, rounded</th></tr></thead>
+          <tbody>
+            <tr><td>S<sup>1</sup></td><td>2&pi;/3</td><td class="num">2.094</td></tr>
+            <tr><td>S<sup>2</sup></td><td>arccos(&minus;1/3)</td><td class="num">1.911</td></tr>
+            <tr><td>S<sup>3</sup></td><td>arccos(&minus;1/4)</td><td class="num">1.823</td></tr>
+            <tr><td>S<sup>4</sup></td><td>arccos(&minus;1/5)</td><td class="num">1.772</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The radius falls toward &pi;/2 as n grows. For the circle the whole barcode is known, so its degree-1 bar really does die at 2&pi;/3. For higher spheres the source establishes how long the class lives, and I did not find a proof that it dies exactly there. <span class="tag cited">Cited</span></p>
+      <p><strong>What a wedge writes.</strong> By Theorem A, the barcode of a wedge is the direct sum of the barcodes of its pieces, which for persistence modules means the bars are gathered into one multiset. A wedge of spheres therefore carries one bar for each sphere in it. The drafts said this correctly in words and then wrote a tensor product beside it. The tensor product belongs to products of spaces, not wedges. <span class="tag cited">Cited</span></p>
+      <div class="held">
+        <h4>What is held back</h4>
+        <p>The &pi;/3 that appears in Theorem D is a lower bound on a <em>distance between two modules</em>. It is not the critical radius of any space. The drafts&rsquo; claim that a critical radius for RP<sup>n</sup> &ldquo;saturates at &pi;/3&rdquo; has no support and is dropped. <span class="tag unchecked">Unchecked</span></p>
+      </div>
+      <h3>The Rite of the Sigil</h3>
+      <ol class="rite">
+        <li><span><em>The Axis.</em> Choose the scale you will sweep, and the metric that defines it.</span></li>
+        <li><span><em>The Tracing.</em> At each scale, note which classes are alive.</span></li>
+        <li><span><em>The Reading.</em> Treat long bars as shape and short bars as weather.</span></li>
+        <li><span><em>The Pairing.</em> To compare two shapes, slide one barcode by a small amount and see whether it lines up with the other.</span></li>
+      </ol>
+      <div class="limit"><span class="label">The Limit</span><p>Trust the long bars, but do not discard the short ones until you know their scale.</p></div>
+      <p class="seal"><em>Signum quod manet.</em> <span>(The mark that remains.)</span></p>
+    </section>
+
+    <section id="question" data-bar="6 Question">
+      <p class="kicker">Chapter Six</p>
+      <h2>The Question</h2>
+      <p class="lede">A beautiful idea earns belief only by surviving a test that could have killed it. Four checks were run for this book, and one was not. <span class="tag proven">Proven</span> by execution, within the limits stated.</p>
+      <div class="tablewrap">
+        <table class="wide">
+          <thead><tr><th>Check</th><th>Result</th><th>Verdict</th></tr></thead>
+          <tbody>
+            <tr><td>Circle, 200 points, geodesic metric: longest degree-1 bar</td><td>Born at 0.031, dies at 2.105. The predicted death is 2&pi;/3, which is 2.094.</td><td>Agrees, within sampling error.</td></tr>
+            <tr><td>2-sphere, 160 points: longest degree-2 bar</td><td>Born at 0.414, dies at 1.955. The class is alive through arccos(&minus;1/3), which is 1.911.</td><td>Consistent with the lower bound. It does not show death at exactly 1.911.</td></tr>
+            <tr><td>Drafts&rsquo; sign for the radii</td><td>arccos(+1/(n+1)) gives 1.047 for the circle against a true 2.094.</td><td>Wrong sign, confirmed.</td></tr>
+            <tr><td>Drafts&rsquo; residual kernel at n = 2, 3, 10, 100</td><td>Returns 0.5235993 every time, which is &pi;/6 plus 5 millionths.</td><td>Circular. It ignores n, so it cannot fail.</td></tr>
+            <tr><td>Steenrod barcodes of RP<sup>2</sup> against S<sup>1</sup> wedge S<sup>2</sup></td><td>Not run.</td><td>Needs software that computes squares on a Rips filtration, and none was available here.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The circle check is short enough to keep:</p>
+<pre><code>import numpy as np
+from ripser import ripser
+
+t = np.linspace(0, 2*np.pi, 200, endpoint=False)
+P = np.c_[np.cos(t), np.sin(t)]
+D = np.arccos(np.clip(P @ P.T, -1, 1)); np.fill_diagonal(D, 0)
+h1 = ripser(D, distance_matrix=True, maxdim=1)['dgms'][1]
+birth, death = h1[np.argmax(h1[:, 1] - h1[:, 0])]
+print(death, 2*np.pi/3)   # expect these to agree to about 0.01</code></pre>
+      <h3>The Rite of the Question</h3>
+      <ol class="rite">
+        <li><span><em>The Statement.</em> Write the claim as an inequality and name the case that would break it.</span></li>
+        <li><span><em>The Known Ground.</em> Run it first where the answer is already known, as the circle is here.</span></li>
+        <li><span><em>The Break.</em> Vary every input. If the output never moves, the code is not measuring anything.</span></li>
+        <li><span><em>The Ledger.</em> Record what passed, what failed, and what was never run. The last column matters most.</span></li>
+      </ol>
+      <p>The drafts&rsquo; own failing test was the right idea: recover the classical sphere radii, and show the excess vanishes when the operation is the identity. The first test was run here and caught a sign error. The second needs the Steenrod software above.</p>
+      <div class="limit"><span class="label">The Limit</span><p>Test the claim that pleases you most, but do not test it with code that cannot fail.</p></div>
+      <p class="seal"><em>Quaere, et proba.</em> <span>(Ask, and test.)</span></p>
+    </section>
+
+    <section id="closing" data-bar="Closing">
+      <p class="kicker">Closing and Warning</p>
+      <h2>Disperse the circle</h2>
+      <p class="lede">Disperse the circle by walking it backwards. Take up the Question, the Sigil, the Feather, the Water, the Candles and the Lodestone in turn, and say what each left you.</p>
+      <h3>What this book claims</h3>
+      <ul>
+        <li>Projection and residual is a working method, and the residual is where the information hides. <span class="tag proven">Proven</span></li>
+        <li>Steenrod squares separate RP<sup>n</sup> from a wedge of spheres where Betti numbers cannot, and their persistent version gives a Gromov-Hausdorff lower bound of &pi;/6, above the &pi;/8 that homology can reach. <span class="tag cited">Cited</span></li>
+        <li>A coordinating head, a bubble ensemble and a Steenrod operation share one shape: a coarse leading term and a structured remainder. <span class="tag analogy">Analogy</span></li>
+      </ul>
+      <h3>What it does not claim</h3>
+      <ul>
+        <li>That any AI system contains a real projective space, or that its hidden states have been shown to form a filtered space with a computable Steenrod structure.</li>
+        <li>That block separability is a tensor product, that the bubble&rsquo;s quadrupole is a Steenrod bar, or that &pi;/3 is a critical radius.</li>
+        <li>That any hive lock proposed in the drafts has been verified. Leave each one unrecorded until the rows marked unchecked in Appendix A are cleared.</li>
+      </ul>
+      <h3>The next rite, if you would perform one</h3>
+      <p>Compute Steenrod barcodes for RP<sup>2</sup> and S<sup>1</sup> wedge S<sup>2</sup> with real software, then build the hidden-state point cloud from Chapter Two and look for barcodes that predict the chosen role. Either result, positive or negative, is worth more than another draft.</p>
+      <h3>Warning</h3>
+      <div class="limit"><span class="label">The Warning</span><p>The danger in this knowledge is not in the mathematics. It is in the sentence that begins &ldquo;this is the same as&rdquo;. Every resemblance in these pages is useful and none is an identity, so never write the second word where the first is all you have earned.</p></div>
+      <p class="seal"><em>Finis. Aperta est porta.</em> <span>(It is ended. The gate stands open.)</span></p>
+    </section>
+
+    <section id="appendix-a" data-bar="App. A Ledger">
+      <p class="kicker">Appendix A</p>
+      <h2>The Sigil of Unveiling</h2>
+      <p class="lede">The ritual text left this appendix as a placeholder for a drawing. Here it is a ledger: every claim in the book, where it comes from, and how far it has been tested.</p>
+      <div class="chips" role="group" aria-label="Filter the ledger by status" id="chips">
+        <button class="chip" type="button" data-f="all" aria-pressed="true">All<span class="n"></span></button>
+        <button class="chip" type="button" data-f="proven" aria-pressed="false">Proven<span class="n"></span></button>
+        <button class="chip" type="button" data-f="cited" aria-pressed="false">Cited<span class="n"></span></button>
+        <button class="chip" type="button" data-f="analogy" aria-pressed="false">Analogy<span class="n"></span></button>
+        <button class="chip" type="button" data-f="unchecked" aria-pressed="false">Unchecked<span class="n"></span></button>
+        <button class="chip" type="button" data-f="setaside" aria-pressed="false">Set aside<span class="n"></span></button>
+        <button class="chip" type="button" data-f="notrun" aria-pressed="false">Not run<span class="n"></span></button>
+      </div>
+      <p class="count" id="count" aria-live="polite"></p>
+      <div class="tablewrap">
+        <table class="wide plain-first" id="ledger-table">
+          <thead><tr><th>Claim</th><th>Where it comes from</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr data-s="proven"><td>A projector satisfies P squared = P, and I minus P projects onto the complement</td><td>Linear algebra</td><td><span class="tag proven">Proven</span></td></tr>
+            <tr data-s="proven"><td>The harmonic projector&rsquo;s rank is the Betti number</td><td>Hodge theory</td><td><span class="tag proven">Proven</span></td></tr>
+            <tr data-s="proven"><td>Sq<sup>k</sup> rules; H*(RP<sup>n</sup>; F<sub>2</sub>) = F<sub>2</sub>[x]/(x<sup>n+1</sup>); positive squares vanish on a wedge of spheres</td><td>Textbook</td><td><span class="tag proven">Proven</span></td></tr>
+            <tr data-s="proven"><td>RP<sup>2</sup> and S<sup>1</sup> wedge S<sup>2</sup> share mod-2 Betti numbers and differ by Sq<sup>1</sup></td><td>Textbook</td><td><span class="tag proven">Proven</span></td></tr>
+            <tr data-s="cited"><td>VR<sub>r</sub>(S<sup>n</sup>) is equivalent to S<sup>n</sup> up to r = arccos(&minus;1/(n+1))</td><td>arXiv:2001.07588, Theorem 10</td><td><span class="tag cited">Cited</span></td></tr>
+            <tr data-s="cited"><td>The circle&rsquo;s degree-1 bar dies at 2&pi;/3</td><td>The same paper; run here, 2.105 against 2.094</td><td><span class="tag cited">Cited</span> and run</td></tr>
+            <tr data-s="unchecked"><td>Higher spheres&rsquo; bars die exactly at arccos(&minus;1/(n+1))</td><td>Not established in the pages read</td><td><span class="tag unchecked">Unchecked</span></td></tr>
+            <tr data-s="cited"><td>Image modules are stable: d<sub>I</sub> at most 2 d<sub>GH</sub> (Theorem C)</td><td>arXiv:2503.17130</td><td><span class="tag cited">Cited</span></td></tr>
+            <tr data-s="cited"><td>Wedge gives a direct sum (A); product gives a tensor product (B)</td><td>arXiv:2503.17130</td><td><span class="tag cited">Cited</span></td></tr>
+            <tr data-s="cited"><td>RP<sup>n</sup> against the sphere wedge: d<sub>I</sub>(homology) below &pi;/4, d<sub>I</sub>(Sq<sup>k</sup>) at least &pi;/3, d<sub>GH</sub> at least &pi;/6 (Theorem D)</td><td>arXiv:2503.17130</td><td><span class="tag cited">Cited</span></td></tr>
+            <tr data-s="cited"><td>TRINITY: 0.6B model plus about 10K head, three roles, sep-CMA-ES, 86.2% on LiveCodeBench</td><td>arXiv:2512.04695</td><td><span class="tag cited">Cited</span></td></tr>
+            <tr data-s="cited"><td>Bubble deformation about the square root of &hbar;/S<sub>b</sub>, near 10% at S<sub>b</sub> = 100 &hbar;</td><td>arXiv:2610.41504</td><td><span class="tag cited">Cited</span></td></tr>
+            <tr data-s="unchecked"><td>The bubble&rsquo;s covariance is a Dirichlet-to-Neumann map</td><td>Drafts only</td><td><span class="tag unchecked">Unchecked</span></td></tr>
+            <tr data-s="analogy"><td>The coordinating head is a cohomology operation</td><td>Drafts</td><td><span class="tag analogy">Analogy</span></td></tr>
+            <tr data-s="analogy"><td>Block separability resembles a direct sum of modules</td><td>Corrected from the drafts&rsquo; tensor product</td><td><span class="tag analogy">Analogy</span></td></tr>
+            <tr data-s="setaside"><td>A quadrupole shows up as a Steenrod bar of length &pi;/3</td><td>Drafts</td><td><span class="tag setaside">Not supported</span> Stability points the other way.</td></tr>
+            <tr data-s="setaside"><td>RP<sup>n</sup> is the popcorn bubble and the wedge is the classical bounce</td><td>Drafts</td><td><span class="tag setaside">Dropped</span></td></tr>
+            <tr data-s="unchecked"><td>Authorship of arXiv:2503.17130 as given in the drafts</td><td>Drafts; the abstract page read lists no authors</td><td><span class="tag unchecked">Unchecked</span></td></tr>
+            <tr data-s="notrun"><td>Steenrod barcodes of RP<sup>2</sup> and S<sup>1</sup> wedge S<sup>2</sup></td><td>Would need Steenrod software on a Rips filtration</td><td><span class="tag notrun">Not run</span></td></tr>
+            <tr data-s="notrun"><td>Hive locks proposed in the drafts</td><td>Drafts</td><td><span class="tag notrun">Not recorded</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="appendix-b" data-bar="App. B Fixes">
+      <p class="kicker">Appendix B</p>
+      <h2>Ledger of Corrections</h2>
+      <p class="lede">Eight places where this book departs from the drafts or from my first review of them, with the reason for each.</p>
+      <div class="tablewrap">
+        <table class="wide plain-first">
+          <thead><tr><th>#</th><th>What was said</th><th>What stands now</th><th>Basis</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td>Critical radius is arccos(+1/(m+1))</td><td>arccos(&minus;1/(m+1))</td><td>arXiv:2001.07588; the circle check gave 2.105 against 2&pi;/3 = 2.094</td></tr>
+            <tr><td class="num">2</td><td>The image module of a wedge is a tensor product</td><td>A direct sum. The tensor product is for products of spaces.</td><td>Theorems A and B of arXiv:2503.17130</td></tr>
+            <tr><td class="num">3</td><td>My first review called the factor 2, &pi;/3, &pi;/4 and &pi;/6 unsourced</td><td>They are in the paper: Theorems C and D</td><td>The paper&rsquo;s abstract page. My first review had not opened it.</td></tr>
+            <tr><td class="num">4</td><td>My first review said the &ldquo;excess&rdquo; &pi;/3 minus &pi;/4 mixes an upper and a lower bound</td><td>That was too harsh. The paper does compare Gromov-Hausdorff lower bounds, &pi;/6 against below &pi;/8, and &pi;/12 is a valid lower bound on the gap between the two interleaving distances. It is still a bound, not a measured residual.</td><td>Theorems C and D</td></tr>
+            <tr><td class="num">5</td><td>The critical radius of RP<sup>n</sup> &ldquo;saturates at &pi;/3&rdquo;</td><td>Dropped. &pi;/3 is a lower bound on a distance between modules.</td><td>Theorem D(2)</td></tr>
+            <tr><td class="num">6</td><td>The residual kernel computes a Gromov-Hausdorff bound</td><td>It returns &pi;/6 plus 5e-7 for every n, so it cannot fail. Replaced by the checks in Chapter Six.</td><td>Run here at n = 2, 3, 10, 100</td></tr>
+            <tr><td class="num">7</td><td>The head is a cohomology operation; block separability is a tensor product; the quadrupole is a Steenrod bar; RP<sup>n</sup> is the popcorn bubble</td><td>Demoted to analogy, corrected to a direct sum, marked unsupported, and dropped, in that order</td><td>Chapters Two to Four</td></tr>
+            <tr><td class="num">8</td><td>My first review could not verify arXiv:2610.41504 or 2512.04695</td><td>Both exist and match the drafts&rsquo; descriptions. arXiv:2607.29103, the CompHaus zigzag, was not checked and is not used here.</td><td>Pages opened 2026-11-04</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="sources" data-bar="Sources">
+      <p class="kicker">Sources</p>
+      <h2>What was read</h2>
+      <p>Each page below was read through a fetch tool that summarises it, so confirm any theorem number against the full text before citing it. Pages read 2026-11-04.</p>
+      <ul>
+        <li><a href="https://arxiv.org/html/2503.17130v2" target="_blank" rel="noopener">Persistent cohomology operations and Gromov-Hausdorff estimates, arXiv:2503.17130</a></li>
+        <li><a href="https://arxiv.org/html/2001.07588v8" target="_blank" rel="noopener">Vietoris-Rips persistent homology, injective metric spaces, and the filling radius, arXiv:2001.07588</a></li>
+        <li><a href="https://arxiv.org/html/2512.04695" target="_blank" rel="noopener">TRINITY: An Evolved LLM Coordinator, arXiv:2512.04695</a></li>
+        <li><a href="https://arxiv.org/abs/2610.41504" target="_blank" rel="noopener">Quantum Popcorn: the shape of a phase transition bubble, arXiv:2610.41504</a></li>
+        <li>The Ritual of Opening text and the Helkhem53 drafts, as attached to this conversation.</li>
+      </ul>
+      <p class="colophon">Set in Libre Caslon and IBM Plex Mono. The bars at the left are measured from the page itself.</p>
+    </section>
+
+  </main>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+
+  /* theme toggle */
+  var btn = document.getElementById('theme');
+  function effective() {
+    var t = root.getAttribute('data-theme');
+    if (t) return t;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function setLabel() { btn.textContent = effective() === 'dark' ? 'Light page' : 'Dark page'; }
+  btn.addEventListener('click', function () {
+    root.setAttribute('data-theme', effective() === 'dark' ? 'light' : 'dark');
+    setLabel();
+  });
+  setLabel();
+
+  /* the book as a barcode: one bar per part, measured from the layout */
+  var main = document.getElementById('main');
+  var holder = document.getElementById('barcode');
+  var scan = document.getElementById('scan');
+  var sections = [].slice.call(main.querySelectorAll('section[data-bar]'));
+  var rows = sections.map(function (s) {
+    var a = document.createElement('a');
+    a.className = 'bar-row';
+    a.href = '#' + s.id;
+    var label = document.createElement('span');
+    label.className = 'bar-label';
+    label.textContent = s.getAttribute('data-bar');
+    var track = document.createElement('span');
+    track.className = 'bar-track';
+    var bar = document.createElement('span');
+    bar.className = 'bar';
+    track.appendChild(bar);
+    a.appendChild(label);
+    a.appendChild(track);
+    holder.insertBefore(a, scan);
+    return { sec: s, row: a, bar: bar };
+  });
+  var geo = [];
+  function top(el) { return el.getBoundingClientRect().top + window.pageYOffset; }
+  function measure() {
+    var mt = top(main), mh = main.offsetHeight || 1;
+    geo = rows.map(function (r) {
+      var t = top(r.sec) - mt;
+      return [t / mh, (t + r.sec.offsetHeight) / mh];
+    });
+    rows.forEach(function (r, i) {
+      r.bar.style.left = (geo[i][0] * 100) + '%';
+      r.bar.style.width = Math.max((geo[i][1] - geo[i][0]) * 100, 2) + '%';
+    });
+    update();
+  }
+  function update() {
+    var mt = top(main), mh = main.offsetHeight || 1;
+    var probe = window.pageYOffset + window.innerHeight * 0.35;
+    var f = Math.min(1, Math.max(0, (probe - mt) / mh));
+    scan.style.left = 'calc(var(--label-w) + (100% - var(--label-w)) * ' + f.toFixed(4) + ')';
+    rows.forEach(function (r, i) {
+      var on = geo[i] && f >= geo[i][0] && f < geo[i][1];
+      r.row.classList.toggle('alive', !!on);
+      if (on) r.row.setAttribute('aria-current', 'location'); else r.row.removeAttribute('aria-current');
+    });
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () { update(); ticking = false; });
+  }, { passive: true });
+  window.addEventListener('resize', measure);
+  window.addEventListener('load', measure);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+  measure();
+
+  /* ledger filter */
+  var chips = [].slice.call(document.querySelectorAll('#chips .chip'));
+  var trs = [].slice.call(document.querySelectorAll('#ledger-table tbody tr'));
+  var count = document.getElementById('count');
+  function shown(k) { return trs.filter(function (r) { return k === 'all' || r.getAttribute('data-s') === k; }).length; }
+  function say(k) { count.textContent = 'Showing ' + shown(k) + ' of ' + trs.length + ' claims.'; }
+  chips.forEach(function (c) {
+    var k = c.getAttribute('data-f');
+    c.querySelector('.n').textContent = shown(k);
+    c.addEventListener('click', function () {
+      chips.forEach(function (x) { x.setAttribute('aria-pressed', x === c ? 'true' : 'false'); });
+      trs.forEach(function (r) { r.hidden = !(k === 'all' || r.getAttribute('data-s') === k); });
+      say(k);
+      measure();
+    });
+  });
+  say('all');
+})();
+</script>
+
+</body></html>

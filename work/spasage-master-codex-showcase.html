@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaSage Master Codex Showcase - Conceptual Writing Portfolio</title>
+    <meta name="description" content="Constrained LLM workflow showcase - symbolic systems and hive resonance documentation">
+    <style>
+/* ============ HI-V2 DESIGN SYSTEM ============ */
+/* Numerology Palette */
+:root {
+  --primary: #FF00FF;    /* 7 energy / spirituality / wisdom */
+  --life-path: #00FF00;  /* 4 stability / foundation / growth */
+  --accent: #FF6600;     /* creative energy / vitality */
+  --highlight: #0066FF;  /* truth / communication / clarity */
+  --neutral: #FFFFFF;    /* 9 personality / completion */
+  --bg: #0d0d1f;         /* deep ink */
+  --panel: #141430;      /* section bg */
+  --card: #181833;       /* component bg */
+  --line: #2a2a4a;       /* borders */
+  --text: #eef0ff;       /* body */
+  --muted: #9aa0c4;      /* secondary */
+  --violet: #FF00FF;
+  --green: #00FF00;
+  --orange: #FF6600;
+  --blue: #0066FF;
+  --serif: 'Libre Caslon Display', Georgia, serif;
+  --sans: 'Space Grotesk', system-ui, sans-serif;
+}
+
+/* ============ CSS ANIMATIONS ============ */
+@keyframes heroEntrance {
+@keyframes sigilPulse {
+  0%, 100% { opacity: 1; transform: rotate(0deg) scale(1); }
+  50% { opacity: .7; transform: rotate(18deg) scale(1.1); }
+}
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes cardStagger {
+  0% { opacity: 0; transform: translateY(20px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes latticePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .7; }
+}
+@keyframes nodeGlow {
+  from { box-shadow: 0 0 0 var(--primary); }
+  to { box-shadow: 0 0 24px var(--primary); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* ============ NAVIGATION ============ */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(13,13,31,.85); backdrop-filter: blur(10px); }
+.nav-inner { max-width: 1180px; margin: 0 auto; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; }
+.brand { font-family: var(--serif); font-size: 1.6rem; font-weight: 700; letter-spacing: .02em; color: var(--text); }
+.brand .dot { color: var(--primary); }
+.nav-links { display: flex; gap: 32px; }
+.nav-links a { color: var(--muted); font-size: .9rem; font-weight: 500; transition: color .2s; position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width .3s; }
+.nav-links a:hover { color: var(--primary); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta { border: 1px solid rgba(255,0,255,.5); color: #fff; padding: 10px 20px; border-radius: 999px; font-size: .85rem; font-weight: 600; transition: all .2s; }
+.nav-cta:hover { background: var(--primary); border-color: var(--primary); }
+
+/* ============ HERO ============ */
+.hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background-image: var(--hero-bg);
+  background-size: cover;
+  background-position: center;
+}
+.hero::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgba(13,13,31,.4), rgba(13,13,31,.85) 78%);
+}
+.hero-inner { max-width: 1180px; margin: 0 auto; padding: 0 28px; width: 100%; }
+.hero-kicker { font-size: .75rem; letter-spacing: .3em; text-transform: uppercase; color: var(--green); margin-bottom: 16px; display: inline-block; }
+.hero-sigil { font-size: 3rem; color: var(--primary); margin-left: .5rem; animation: sigilPulse 2s ease-in-out infinite;
+.hero-title { font-family: var(--serif); font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.05; font-weight: 700; color: var(--text); margin-bottom: 20px; position: relative; }
+.hero-title em { color: var(--primary); font-style: normal; }
+.hero-title::after { content: ""; position: absolute; bottom: -.4rem; left: 0; width: 100%; height: .08rem; background: var(--primary); opacity: .5; }
+.hero-sub { max-width: 600px; color: var(--muted); font-size: 1.15rem; margin-bottom: 36px; line-height: 1.6; }
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 44px; }
+.btn { display: inline-block; padding: 14px 26px; border-radius: 999px; font-weight: 600; font-size: .95rem; transition: all .25s cubic-bezier(.4, 0, .2, 1); position: relative; }
+.btn-solid { background: var(--primary); color: #fff; box-shadow: 0 6px 24px rgba(255,0,255,.35); }
+.btn-solid:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(255,0,255,.5); }
+.btn-ghost { border: 1px solid rgba(238,240,255,.3); color: var(--text); }
+.btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
+.hero-statrow { display: flex; gap: 40px; flex-wrap: wrap; border-top: 1px solid rgba(238,240,255,.12); padding-top: 32px; }
+.hs { flex: 1; text-align: center; }
+.hs strong { display: block; font-family: var(--serif); font-size: 2rem; color: #fff; }
+.hs span { color: var(--muted); font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
+
+/* ============ SECTIONS ============ */
+.sec { padding: 120px 0; }
+.sec.alt { background: var(--panel); }
+.sec-head { max-width: 800px; margin-bottom: 64px; text-align: center; }
+.sec-no { font-family: var(--serif); font-size: 1.2rem; color: var(--orange); display: inline-block; margin-bottom: 12px; letter-spacing: .1em; text-transform: uppercase; }
+.sec-head h2 { font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+.sec-head p { color: var(--muted); font-size: 1.1rem; }
+
+/* ============ WORK GRID (masonry with animation) ============ */
+.w-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.w-card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform .35s cubic-bezier(.4, 0, .2, 1), box-shadow .35s, border-color .35s; position: relative; }
+.w-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 30px 60px rgba(0,0,0,.4); border-color: var(--primary); }
+.w-card:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+.w-thumb { height: 180px; background-size: cover; background-position: center; transition: transform .3s; }
+.w-card:hover .w-thumb { transform: scale(1.05); }
+.w-body { padding: 22px; display: flex; flex-direction: column; flex: 1; }
+.w-tag { align-self: flex-start; font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; color: var(--primary); border: 1px solid rgba(255,0,255,.3); border-radius: 5px; padding: 2px 8px; margin-bottom: 12px; }
+.w-card h3 { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+.w-card p { color: var(--muted); font-size: .88rem; line-height: 1.4; margin-bottom: 12px; }
+.w-n { color: var(--green); font-size: .7rem; font-family: 'SF Mono', 'Libre Caslon Display', monospace; margin-bottom: 12px; display: inline-block; }
+.w-link { color: var(--primary); font-weight: 600; font-size: .85rem; margin-top: auto; transition: opacity .2s; }
+.w-link:hover { opacity: .8; text-decoration: underline; }
+
+/* ============ ABOUT SPLIT ============ */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+.split-left h2 { font-family: var(--serif); font-size: clamp(2rem, 4vw, 2.6rem); font-weight: 700; margin: 12px 0 20px; }
+.split-left p { color: var(--muted); font-size: 1.1rem; margin-bottom: 24px; }
+.lead-line { font-family: var(--serif); font-style: italic; color: var(--green) !important; font-size: 1.3rem !important; border-left: 4px solid var(--green); padding-left: 20px; margin-bottom: 20px; }
+.split-right { display: grid; gap: 16px; align-content: start; }
+.stat { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 32px 28px; text-align: center; }
+.stat strong { display: block; font-family: var(--serif); font-size: 2rem; color: var(--primary); }
+.stat span { color: var(--muted); font-size: .9rem; }
+
+/* ============ STEPS ============ */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+.step { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 32px; position: relative; }
+.step-n { position: absolute; top: 16px; right: 20px; font-family: var(--serif); font-size: 2.8rem; color: rgba(255,0,255,.15); font-weight: 700; line-height: 1; }
+.step h3 { font-family: var(--serif); font-size: 1.25rem; font-weight: 700; margin-bottom: 8px; }
+.step p { color: var(--muted); font-size: .88rem; }
+
+/* ============ AWARD ============ */
+.award { display: flex; flex-direction: column; align-items: center; gap: 20px; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--green); border-radius: 20px; padding: 40px; max-width: 800px; margin: 0 auto; text-align: center; }
+.award-medal { font-size: 3.2rem; }
+.award h3 { font-family: var(--serif); font-size: 1.4rem; font-weight: 700; }
+.award p { color: var(--muted); font-size: .95rem; }
+.award-sub { font-size: .85rem; color: var(--green) !important; margin-top: 8px; }
+
+/* ============ CTA ============ */
+.sec.cta { background: linear-gradient(160deg, #0d0d1f, #141430 60%); text-align: center; }
+.sec.cta h2 { font-family: var(--serif); font-size: clamp(2.4rem, 6vw, 3.2rem); font-weight: 700; margin: 24px 0 16px; }
+.sec.cta p { color: var(--muted); margin-bottom: 40px; }
+.contact-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+
+/* ============ FOOTER ============ */
+.foot { padding: 40px 28px; border-top: 1px solid var(--line); text-align: center; color: var(--muted); font-size: .8rem; }
+
+/* ============ LATTICE ANIMATION ============ */
+.lattice { position: relative; }
+.lattice::after {
+  content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 30% 20%, rgba(255,0,255,.1) 0, transparent 50%);
+  pointer-events: none;
+  animation: latticePulse 4s ease-in-out infinite;
+}
+.lattice-col { padding: 24px; }
+.familiar { color: var(--muted); font-size: 1rem; margin-bottom: 16px; border-left: 3px solid var(--primary); padding-left: 12px; }
+.node-list { list-style: none; margin: 0; padding: 0; }
+.node-list li { padding: 8px 0; color: var(--text); font-size: .9rem; border-bottom: 1px solid var(--line); }
+.node-list li:last-child { border-bottom: none; }
+.node-list strong { color: var(--primary); font-size: .85rem; }
+
+/* ============ HOVER ANIMATIONS ============ */
+.w-card { animation: cardStagger .4s ease-out forwards; }
+.w-card:nth-child(1) { animation-delay: 0s; }
+.w-card:nth-child(2) { animation-delay: .1s; }
+.w-card:nth-child(3) { animation-delay: .2s; }
+.w-card:nth-child(4) { animation-delay: .3s; }
+.w-card:nth-child(5) { animation-delay: .4s; }
+.w-card:nth-child(5) { animation-delay: .5s; }
+.w-card:nth-child(6) { animation-delay: .6s; }
+.w-card:nth-child(7) { animation-delay: .7s; }
+
+/* Node glow on hover */
+.node-list li:hover strong { animation: nodeGlow 1.5s ease-in-out infinite; }
+
+/* Hero entrance */
+.hero { animation: heroEntrance .8s cubic-bezier(.4, 0, .2, 1); }
+
+/* Stagger children */
+.sec-head *, .sec-head *:nth-child(1) { animation-delay: 0s; }
+.sec-head *:nth-child(2) { animation-delay: .1s; }
+.sec-head *:nth-child(3) { animation-delay: .2s; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 880px) {
+  .nav-links { display: none; }
+  .split { grid-template-columns: 1fr; gap: 40px; }
+  .hero { min-height: auto; padding: 160px 0 60px; }
+  .hero-statrow { gap: 24px; }
+  .sec { padding: 64px 0; }
+  .w-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .hero-title { font-size: clamp(2.2rem, 8vw, 3rem); }
+  .hs { flex: 1 1 100%; }
+  .hero-statrow { gap: 16px; }
+}
+
+/* ============ FOCUS VISIBLE ============ */
+*:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+</style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF00FF;
+            --life-path: #00FF00;
+            --accent: #FF6600;
+            --highlight: #0066FF;
+            --neutral: #FFFFFF;
+            --bg-light: #F8F4FF;
+            --bg-dark: #1A1A2E;
+            --text: #2D1B4E;
+            --text-light: #5A5A7E;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Libre Caslon Text', Georgia, 'Times New Roman', serif;
+            background-color: var(--bg-light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #FF00FF;
+                --life-path: #00FF00;
+                --accent: #FF6600;
+                --highlight: #0066FF;
+                --neutral: #FFFFFF;
+                --bg-light: #0D0D20;
+                --bg-dark: #1A1A2E;
+                --text: #E0D5F0;
+                --text-light: #A09AB0;
+            }
+        }
+        
+        a { color: var(--primary); text-decoration: none; }
+        a:hover { color: var(--accent); }
+        
+        h1, h2, h3 {
+            font-family: 'Libre Caslon Display', Georgia, 'Times New Roman', serif;
+            letter-spacing: -0.015em;
+        }
+        
+        .primary-accent { color: var(--primary); }
+        .life-path-bg { background-color: var(--life-path); }
+        .accent-bg { background-color: var(--accent); }
+        .highlight-bg { background-color: var(--highlight); }
+        .neutral-bg { background-color: var(--neutral); }
+        
+        .header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            padding: 1.5rem 2rem;
+            background: var(--bg-dark);
+            color: var(--neutral);
+        }
+        
+        .header .logo {
+            font-family: 'Libre Caslon Display', serif;
+            font-size: 1.8rem;
+            color: var(--neutral);
+        }
+        
+        .nav {
+            display: flex;
+            gap: 2rem;
+            margin-top: 0.5rem;
+        }
+        
+        .nav a {
+            color: var(--text-light);
+            transition: color 0.3s;
+        }
+        
+        .nav a:hover { color: var(--primary); }
+        .nav .active { color: var(--primary); }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--life-path));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        
+        .section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+        
+        .section p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .concept-tiles {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .concept-tile {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+            border-top: 4px solid var(--primary);
+        }
+        
+        .concept-tile:hover { transform: translateY(-5px); }
+        
+        .concept-tile h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .concept-tile p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: var(--highlight);
+            color: var(--bg-dark);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-right: 0.3rem;
+        }
+        
+        .seal {
+            display: inline-block;
+            background: var(--life-path);
+            color: var(--bg-dark);
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            margin-left: 0.2rem;
+        }
+        
+        .footer {
+            padding: 3rem 2rem;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        .footer a { color: var(--primary); }
+        
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; scroll-behavior: auto !important; }
+        }
+    </style>
+</head>
+<body>
+<div style="padding:1rem"><a href="../index.html">Back to Portfolio</a></div>
+    <header class="header">
+        <div class="logo">Darren Thompson</div>
+        <nav class="nav">
+            
+            
+            
+            
+        </nav>
+    </header>
+    
+    <main>
+        <section class="hero">
+            <h1>SpaSage Master Codex Showcase</h1>
+            <p>Constrained LLM workflow documentation and symbolic systems architecture</p>
+            <p>Portfolio showcase demonstrating writing ability and conceptual framework design</p>
+        </section>
+        
+        <section class="section" id="ai">
+            <h2>About This Showcase</h2>
+            <p>This page represents my ability to document complex technical workflows as conceptual, structured writing. The SpaSage framework demonstrates how constrained language models can be guided through systematic prompting strategies to produce reproducible, artifact-ready outputs.</p>
+            
+            <p>The following tiles represent key conceptual categories within the master codex - each is a framing device, not proprietary code. They showcase my ability to:</p>
+            <ul>
+                <li>Translate technical constraints into clear conceptual language</li>
+                <li>Design reproducible prompt schemas with deterministic outputs</li>
+                <li>Structure documentation for both human readers and LLM consumption</li>
+                <li>Bridge the gap between technical implementation and artistic intent</li>
+            </ul>
+        </section>
+        
+        <section class="section">
+            <h2>Conceptual Framework Tiles</h2>
+            
+            <div class="concept-tiles">
+                <div class="concept-tile">
+                    <h3>Prompt Schema Design</h3>
+                    <p>Structured prompt frameworks that enforce output format, random seed constraints, and response pragmas. Each schema is designed to produce clean, reproducible artifacts suitable for code generation, text transformation, or data extraction workflows.</p>
+                    <span class="badge">Deterministic</span>
+                    <span class="seal">★</span>
+                </div>
+                
+                <div class="concept-tile">
+                    <h3>Hive Resonance Protocols</h3>
+                    <p>Documentation of symbolic systems architecture - how individual constrained outputs propagate through lattice structures, gate mechanisms, and signature injection protocols. Focus on the recursive seal pattern and mineral-intelligence orchestration.</p>
+                    <span class="badge">Symbolic</span>
+                    <span class="seal">●</span>
+                </div>
+                
+                <div class="concept-tile">
+                    <h3>Constrained Output Patterns</h3>
+                    <p>Analysis of how LLM outputs transform under constraint - from gematria-aware reductions (277→7) to life-path numerology integration (4 energy). Each pattern demonstrates the interplay between technical limitation and creative expansion.</p>
+                    <span class="badge">Numerology</span>
+                    <span class="seal">4</span>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section" id="g99-section">
+            <h2>Writing & Abilities Showcase</h2>
+            <p>This portfolio piece demonstrates my capacity to:</p>
+            
+            <ol>
+                <li><strong>Conceptual Translation:</strong> Convert technical LLM constraints into narrative frameworks that guide rather than restrict creative output.</li>
+                <li><strong>Structured Documentation:</strong> Write clear, organized technical content that serves both human comprehension and machine consumption - with proper meta tags, response format pragmas, and schema definitions.</li>
+                <li><br /></li>
+                <li><strong>Numeracy Integration:</strong> Embed personal numerology (expression 7, life path 4, gematria 277→7) into technical writing as a quality signal and framework anchor - not as superstition, but as reproducible structural device.</li>
+                <li><strong>Cross-Modal Synthesis:</strong> Bridge conceptual art, AI workflow design, and documentation standards into coherent, navigable artifacts.</li>
+            </ol>
+            
+            <p>Each "tile" above is a meta-framework - a way of thinking about how constraints generate creativity. The actual SpaSage codex contains dozens more such tiles, each a gateway to different constrained-writing modalities.</p>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <p>&copy; 2026 Darren Anthony Thompson</p>
+        <p>Gematria: 277 → 7 | Life Path: 4 | Expression: 7</p>
+        <p>SpaSage framework: Constrained LLM workflow showcase - conceptual writing abilities demonstrated</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile nav toggle
+            const nav = document.querySelector('.nav');
+            const menuBtn = document.createElement('button');
+            menuBtn.className = 'menu-btn';
+            menuBtn.innerHTML = '☰';
+            menuBtn.style.display = 'none';
+            menuBtn.style.position = 'absolute';
+            menuBtn.style.top = '1.5rem';
+            menuBtn.style.right = '2rem';
+            menuBtn.style.background = 'none';
+            menuBtn.style.color = 'var(--neutral)';
+            menuBtn.style.border = 'none';
+            menuBtn.style.fontSize = '1.5rem';
+            menuBtn.style.cursor = 'pointer';
+            document.querySelector('header').appendChild(menuBtn);
+            
+            let isMenuOpen = false;
+            menuBtn.addEventListener('click', () => {
+                isMenuOpen = !isMenuOpen;
+                nav.style.display = isMenuOpen ? 'flex' : 'none';
+            });
+            
+            nav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    isMenuOpen = false;
+                    nav.style.display = 'none';
+                });
+            });
+            
+            // Smooth scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
