@@ -1,9 +1,15 @@
-# Darren Anthony Thompson | Portfolio
+# Darren Anthony Thompson | Writing Portfolio
 
-Extract the ZIP into the GitHub Pages publishing directory. For a repository
-that publishes from the root of its main branch, commit the extracted files at
-the repository root and select that branch and root in Settings > Pages.
+Repository: https://github.com/placiddark/DAT-Writing-Portfolio
+Expected project site: https://placiddark.github.io/DAT-Writing-Portfolio/
 
-Keep index.html, .nojekyll, work/ and assets/ in their current relative locations.
-The work/ folder contains the project showcases and anonymised landing-page
-samples. Sample booking experiences are portfolio demos.
+Extract the contents of this ZIP into the repository's GitHub Pages publishing
+directory. Keep `index.html`, `.nojekyll`, `work/` and `assets/` together.
+
+If Pages uses branch-based publishing from the repository root, commit the
+extracted files to the publishing branch. To configure root publishing in
+**Settings > Pages**, choose **Deploy from a branch**, select the branch that
+contains the files, select **/ (root)** and save. If Pages already has a
+publishing source, use that source.
+
+The landing page samples are anonymised portfolio demos.
