@@ -1,7 +1,7 @@
 # Darren Anthony Thompson | Writing Portfolio
 
-Repository: https://github.com/placiddark/DAT-Writing-Portfolio
-Expected project site: https://placiddark.github.io/DAT-Writing-Portfolio/
+Repository: https://github.com/placiddark/dat-portfolio
+Project site: https://placiddark.github.io/dat-portfolio/
 
 Extract the contents of this ZIP into the repository's GitHub Pages publishing
 directory. Keep `index.html`, `.nojekyll`, `work/` and `assets/` together.
